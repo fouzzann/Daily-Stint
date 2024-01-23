@@ -106,7 +106,7 @@ class WelcomePage  extends StatelessWidget {
                child: Padding(
                  padding: const EdgeInsets.only(right:15),
                  child: Text(
-                 'fulfillment',
+                 'fulfillment  ',
                  style: TextStyle(color: Color(0xFF563267),
                   fontSize: 23,
                   fontWeight: FontWeight.w500
