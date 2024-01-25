@@ -37,7 +37,7 @@ class _myTaskState extends State<MyTask> {
           style: TextStyle(fontSize: 25,
           fontWeight: FontWeight.w600, 
           color:  Color.fromARGB(255, 38, 6, 80),),
-                
+                       
           ),
         ),
           backgroundColor:Color.fromARGB(255, 192, 161, 214),           
