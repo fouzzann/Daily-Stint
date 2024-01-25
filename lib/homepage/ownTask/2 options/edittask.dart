@@ -1,41 +1,36 @@
 
 import 'package:daily_stint_2/Hive/model.dart';
-import 'package:daily_stint_2/homepage/ownTask/mytask.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class Day extends StatefulWidget {
-  const Day({Key? key}) : super(key: key);
+class DayEdit extends StatefulWidget {
+final Model updateModel;
+
+  const DayEdit({super.key, required this.updateModel});
 
   @override
-  State<Day> createState() => _CustomState();
+  State<DayEdit> createState() => _CustomState();
 }
 
-class _CustomState extends State<Day> {
+class _CustomState extends State<DayEdit> {
 
   TextEditingController _dateController = TextEditingController();
   TextEditingController _PlanNameController = TextEditingController();
   TextEditingController _AddedTextFieldController = TextEditingController();
-  TextEditingController _optionNameController = TextEditingController();
-  TextEditingController _subTaskName = TextEditingController();
-  TextEditingController _addSubTask = TextEditingController();
   List<TextEditingController> _addedTextFieldControllers = [];
+  
  
   final _formKey = GlobalKey<FormState>();
   DateTime today = DateTime.now();
   List<Widget> textFields = [];
   DateTime selectedDate = DateTime.now();
   @override
-  void initState() {
-     _dateController = TextEditingController(
-      text: DateFormat(
-        'dd-mm-yyyy',   
-      ).format(DateTime.now())  
-      );
-    _addedTextFieldControllers = [TextEditingController()];
-   
+  void initState() { 
+   _dateController.text=widget.updateModel.selectedDate;
+   _PlanNameController.text =widget.updateModel.planName;
+   _AddedTextFieldController.text= widget.updateModel.buildTextField.toString();
+   _addedTextFieldControllers = widget.updateModel.buildTextField.map((value) => TextEditingController(text: value)).toList();
+   textFields.addAll(_addedTextFieldControllers.map((controller) => buildTextField(_addedTextFieldControllers.indexOf(controller))));
     super.initState();
   }
   @override
@@ -47,13 +42,10 @@ class _CustomState extends State<Day> {
         body: SingleChildScrollView(
           child: Column(
             children: [ 
-              
-            //  TextField(
-            //   decoration: InputDecoration( hintText: 'Option Day',
-            //       border: InputBorder.none
-            //       ),
-            //   controller: _optionNameController,
-            //  ),
+              SizedBox(
+                height: 35,
+              ),
+             
               Padding(
                 padding: const EdgeInsets.only(left: 155),   
                 child: TextFormField(
@@ -62,8 +54,7 @@ class _CustomState extends State<Day> {
                   ),
                   controller: _dateController,
                 ),
-              ),
-              
+              ),             
               SizedBox(
                 height: 20,
               ),
@@ -81,16 +72,12 @@ class _CustomState extends State<Day> {
               ),
               Form(key:_formKey,
                 child: Column(            
-                  children: [
-                    Text(''),
+                  children: [                    
                     Padding(
                       padding: const EdgeInsets.all(9.0),
-                      child: Container(
-                      
+                      child: Container(                     
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            
-                            
+                          border: Border.all(                                                    
                           ),
                           borderRadius: BorderRadius.circular(8)
                         ),
@@ -123,8 +110,7 @@ class _CustomState extends State<Day> {
 
                 onPressed: () {
                   if (_addedTextFieldControllers.length<9999999) {
-                    setState(() {
-                      List<TextEditingController> controllers = List.from(_addedTextFieldControllers);
+                    setState(() {                      
                      _addedTextFieldControllers.add(TextEditingController());
                      textFields.add(buildTextField(_addedTextFieldControllers.length - 1,));
 
@@ -143,17 +129,16 @@ class _CustomState extends State<Day> {
                 ),
             ),
             SizedBox(height:69),
-            ElevatedButton(onPressed: (){
-              if(_formKey.currentState!.validate()){
-                saveToDataBase();
-                
-              }             
-              print(_dateController.text);
-              print(_addedTextFieldControllers.map((controller) => controller.text).toList());
-              print(_PlanNameController.text);
-            }, child: Text('Save',
+            ElevatedButton(onPressed: ()async{
+              widget.updateModel.selectedDate = _dateController.text.toString();
+              widget.updateModel.planName = _PlanNameController.text.toString();
+              widget.updateModel.buildTextField = _addedTextFieldControllers.map((controller) => controller.text).toList();
+              await widget.updateModel.save();
+              Navigator.pop(context);
+            }, child: Text('Update',
             style: TextStyle(color: Colors.white),),
             style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF563267)),
+           
             ),
             ),
             ],
@@ -165,38 +150,25 @@ class _CustomState extends State<Day> {
   Widget buildTextField(int intex) {
     return Padding(
       padding: const EdgeInsets.all(9.0),
-      child: Expanded(
-        child: Container(height: 100,
-          decoration: BoxDecoration(
-          color: Color.fromARGB(255, 131, 100, 146),
-          borderRadius: BorderRadius.circular(10)  
-        ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: TextFormField(
-               controller: _addedTextFieldControllers[intex],
-              decoration: InputDecoration(            
-                hintText: "Tap To Add Plan +",             
-                border: InputBorder.none               
-              ),
+      child: Container(height: 100,
+        decoration: BoxDecoration(
+        color: Color.fromARGB(255, 131, 100, 146),
+        borderRadius: BorderRadius.circular(10)  
+      ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: TextFormField(
+             controller: _addedTextFieldControllers[intex],
+            decoration: InputDecoration(            
+              hintText: "Tap To Add Plan +",             
+              border: InputBorder.none               
             ),
           ),
         ),
       ),
     );
   }
-  void saveToDataBase()async{
-    final myData = Model(selectedDate: _dateController.text.toString(),
-    subTaskName: _subTaskName.text.toString(), 
-    AddSubTask: _addSubTask.text.toString(),  
-     planName: _PlanNameController.text.toString(),
-      buildTextField: _addedTextFieldControllers.map((controller) => controller.text).toList());
-    var box = await Hive.openBox<Model>('model');
-    await box.add(myData);
-    // await box.close();
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MyTask()));
-    print(box);
-  }
+ 
 }
 
 

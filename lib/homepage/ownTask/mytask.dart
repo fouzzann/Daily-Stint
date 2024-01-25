@@ -2,10 +2,11 @@
 import 'package:daily_stint_2/Hive/box.dart';
 import 'package:daily_stint_2/Hive/model.dart';
 import 'package:daily_stint_2/homepage/home.dart';
-import 'package:daily_stint_2/homepage/ownTask/2%20options/Day.dart';
-import 'package:daily_stint_2/homepage/ownTask/2%20options/dayedit.dart';
+import 'package:daily_stint_2/homepage/ownTask/2%20options/addplan.dart';
+import 'package:daily_stint_2/homepage/ownTask/2%20options/edittask.dart';
 import 'package:daily_stint_2/homepage/ownTask/2%20options/details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 
 class MyTask extends StatefulWidget {
@@ -25,7 +26,7 @@ class _myTaskState extends State<MyTask> {
       child: Scaffold(
         backgroundColor:Color(0xFFE6D7F1),
         appBar: AppBar(
-          elevation: 0, 
+
           leading: IconButton(onPressed: (){
             Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MyHome()));
           } ,icon: Icon(Icons.arrow_back,
@@ -51,7 +52,7 @@ class _myTaskState extends State<MyTask> {
               return             
               Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: GestureDetector(onDoubleTap: (){
+                child: GestureDetector(onTap: (){
                   Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MyDetails(name: myData[index%myData.length])));
                 },
                   child: Card(
@@ -73,7 +74,7 @@ class _myTaskState extends State<MyTask> {
                        mainAxisAlignment: MainAxisAlignment.start,
                        children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 215,),
+                          padding: const EdgeInsets.only(left: 275),
                           child: Row(
                             children: [
                               IconButton(onPressed: (){

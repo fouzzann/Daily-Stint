@@ -1,7 +1,9 @@
 
 import 'package:daily_stint_2/Hive/model.dart';
+import 'package:daily_stint_2/homepage/home.dart';
 import 'package:daily_stint_2/welcomePg/splashcreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -35,10 +37,18 @@ class DailyStint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    return const MaterialApp(
-      home: splashScreen(),
-      debugShowCheckedModeBanner: false, 
+    // return const MaterialApp(
+    //   home: splashScreen(),
+    //   debugShowCheckedModeBanner: false, 
       
+    // );
+      return ScreenUtilInit(
+      designSize: Size(360, 690), // Design size of your UI
+      builder: (context,child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: splashScreen(),
+      ),
     );
   }
 }
+

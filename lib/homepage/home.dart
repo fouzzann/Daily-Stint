@@ -1,11 +1,10 @@
 
-
-
 import 'package:daily_stint_2/authentication/login.dart';
 import 'package:daily_stint_2/homepage/subtask.dart';
 import 'package:daily_stint_2/homepage/diary.dart';
 import 'package:daily_stint_2/homepage/ownTask/mytask.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyHome extends StatefulWidget {
@@ -44,6 +43,7 @@ class _MyHomeState extends State<MyHome> {
   //       );
   //      }
   //     );
+  //
   // }
   @override
   Widget build(BuildContext context) {
@@ -143,28 +143,31 @@ class _MyHomeState extends State<MyHome> {
 ],
 
           ),
+          
         ),
         ////////////////////////////// Admin////////////////////////////
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 60, top: 35),
-            child: Column(
+          child: Center(
+            child: Column( 
               children: [
-                GestureDetector(  onTap: () {
+                GestureDetector(  onTap: () { 
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => MyTask()), // Replace YourNextScreen with the actual name of your next screen
                 );
+                // right: 47,top:30
               },
                   child: Container(
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.only(right: 47,top:30),
+                        padding: EdgeInsets.only(right:  ScreenUtil().setWidth(47),
+                        top: ScreenUtil().setHeight(30),
+                        ),
                         child: Text(
                           '''
-         Let's Start your
-          Journey With  
-             Daily Stint 
+          Let's Start your
+            Journey With 
+              Daily Stint 
                     ''',
                                 
                           style: TextStyle(
@@ -203,7 +206,7 @@ class _MyHomeState extends State<MyHome> {
                         padding: const EdgeInsets.only(right: 47,bottom:100),
                         child: Text(
                           '''
-           Make Own Plan 
+          Make Own Plan 
                         ''',
                                 
                           style: TextStyle(
@@ -273,8 +276,8 @@ class _MyHomeState extends State<MyHome> {
                     ),
                   ),
                 ),
-
-////////////////////////////// my diary////////////////////////////
+            
+            ////////////////////////////// my diary////////////////////////////
                 SizedBox(
                   height: 30,
                 ),

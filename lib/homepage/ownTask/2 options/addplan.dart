@@ -6,22 +6,22 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class DayEdit extends StatefulWidget {
-final Model updateModel;
-
-  const DayEdit({super.key, required this.updateModel});
+class Day extends StatefulWidget {
+  const Day({Key? key}) : super(key: key);
 
   @override
-  State<DayEdit> createState() => _CustomState();
+  State<Day> createState() => _CustomState();
 }
 
-class _CustomState extends State<DayEdit> {
+class _CustomState extends State<Day> {
 
   TextEditingController _dateController = TextEditingController();
   TextEditingController _PlanNameController = TextEditingController();
   TextEditingController _AddedTextFieldController = TextEditingController();
+  TextEditingController _optionNameController = TextEditingController();
+  TextEditingController _subTaskName = TextEditingController();
+  TextEditingController _addSubTask = TextEditingController();
   List<TextEditingController> _addedTextFieldControllers = [];
-  
  
   final _formKey = GlobalKey<FormState>();
   DateTime today = DateTime.now();
@@ -29,33 +29,31 @@ class _CustomState extends State<DayEdit> {
   DateTime selectedDate = DateTime.now();
   @override
   void initState() {
-
-    //  _dateController = TextEditingController(
-    //   text: DateFormat(
-    //     'yyyy-mm-dd',   
-    //   ).format(DateTime.now())  
-    //   );
-    // _addedTextFieldControllers = [TextEditingController()];
+     _dateController = TextEditingController(
+      text: DateFormat(
+        'dd-mm-yyyy',   
+      ).format(DateTime.now())  
+      );
+    _addedTextFieldControllers = [TextEditingController()];
    
-   _dateController.text=widget.updateModel.selectedDate;
-   _PlanNameController.text =widget.updateModel.planName;
-// _AddedTextFieldController.text= widget.updateModel.buildTextField.toString();
-_addedTextFieldControllers = widget.updateModel.buildTextField.map((value) => TextEditingController(text: value)).toList();
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(backgroundColor: Color(0xFFE6D7F1)),
+        appBar: AppBar(
+          title: Text('Add Plan',
+          style: TextStyle(fontSize: 25,
+          fontWeight: FontWeight.w600, 
+          color:  Color.fromARGB(255, 38, 6, 80),),
+        ),
+        centerTitle: true,
+          backgroundColor: Color.fromARGB(255, 192, 161, 214),),
         backgroundColor: Color(0xFFE6D7F1),
         body: SingleChildScrollView(
           child: Column(
             children: [ 
-              SizedBox(
-                height: 35,
-              ),
-             
               Padding(
                 padding: const EdgeInsets.only(left: 155),   
                 child: TextFormField(
@@ -121,42 +119,53 @@ _addedTextFieldControllers = widget.updateModel.buildTextField.map((value) => Te
                   ],
                 ),
               ),
-              ElevatedButton(
-
-                onPressed: () {
-                  if (_addedTextFieldControllers.length<9999999) {
+           
+            GestureDetector(onTap:(){
+              if (_addedTextFieldControllers.length<9999999) {
                     setState(() {
-                      
+                      List<TextEditingController> controllers = List.from(_addedTextFieldControllers);
                      _addedTextFieldControllers.add(TextEditingController());
                      textFields.add(buildTextField(_addedTextFieldControllers.length - 1,));
 
                     }
                    );
                   }
-                },
-                child: Text("+ Add Plan's",
-                style: TextStyle(
-                  color: Colors.white
-                ),),
-                style: ButtonStyle(
-                  backgroundColor:  MaterialStateProperty.all<Color>(Color.fromARGB(255, 55, 206, 68),
-                  ),
-
-                ),
+            } ,
+              child: Container(
+                        child: Center(child: Text("Click here to Add plan",
+                        style: TextStyle(
+              fontWeight: FontWeight.w600,
+              color: Colors.white,fontSize: 17
+              
+              ),
+              
+              )),    
+                height: 80,
+                width: 390,
+                decoration:BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.green
+                  
+                ) ,
+              ),
             ),
             SizedBox(height:69),
-            ElevatedButton(onPressed: ()async{
-              widget.updateModel.selectedDate = _dateController.text.toString();
-              widget.updateModel.planName = _PlanNameController.text.toString();
-              widget.updateModel.buildTextField = _addedTextFieldControllers.map((controller) => controller.text).toList();
-              await widget.updateModel.save();
-              Navigator.pop(context);
-            }, child: Text('Update',
-            style: TextStyle(color: Colors.white),),
+            ElevatedButton(onPressed: (){
+              if(_formKey.currentState!.validate()){
+                saveToDataBase();
+                
+              }             
+              
+            },
+             child: Text('Save',
+                         style: TextStyle(color: Colors.white),),
             style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF563267)),
-           
             ),
             ),
+            SizedBox(
+              height: 10,
+            )
+            
             ],
           ),
         ),
@@ -166,25 +175,38 @@ _addedTextFieldControllers = widget.updateModel.buildTextField.map((value) => Te
   Widget buildTextField(int intex) {
     return Padding(
       padding: const EdgeInsets.all(9.0),
-      child: Container(height: 100,
-        decoration: BoxDecoration(
-        color: Color.fromARGB(255, 131, 100, 146),
-        borderRadius: BorderRadius.circular(10)  
-      ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: TextFormField(
-             controller: _addedTextFieldControllers[intex],
-            decoration: InputDecoration(            
-              hintText: "Tap To Add Plan +",             
-              border: InputBorder.none               
+      child: Expanded(
+        child: Container(height: 100,
+          decoration: BoxDecoration(
+          color: Color.fromARGB(255, 131, 100, 146),
+          borderRadius: BorderRadius.circular(10)  
+        ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: TextFormField(
+               controller: _addedTextFieldControllers[intex],
+              decoration: InputDecoration(            
+                hintText: "Tap To Add Plan +",             
+                border: InputBorder.none               
+              ),
             ),
           ),
         ),
       ),
     );
   }
- 
+  void saveToDataBase()async{
+    final myData = Model(selectedDate: _dateController.text.toString(),
+    subTaskName: _subTaskName.text.toString(), 
+    AddSubTask: _addSubTask.text.toString(),  
+     planName: _PlanNameController.text.toString(),
+      buildTextField: _addedTextFieldControllers.map((controller) => controller.text).toList());
+    var box = await Hive.openBox<Model>('model');
+    await box.add(myData);
+    // await box.close();
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MyTask()));
+    print(box);
+  }
 }
 
 

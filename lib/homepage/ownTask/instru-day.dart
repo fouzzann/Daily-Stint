@@ -1,6 +1,6 @@
 
 
-import 'package:daily_stint_2/homepage/ownTask/2%20options/Day.dart';
+import 'package:daily_stint_2/homepage/ownTask/2%20options/addplan.dart';
 import 'package:daily_stint_2/homepage/ownTask/instru-custom.dart';
 import 'package:flutter/material.dart';
 
