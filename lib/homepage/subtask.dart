@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:daily_stint_2/Hive/box.dart';
 import 'package:daily_stint_2/Hive/model.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,8 @@ class SubTask extends StatefulWidget {
 class _SubTaskState extends State<SubTask> {
   TextEditingController _subTaskName = TextEditingController();
   TextEditingController _addSubTask = TextEditingController();
+  TextEditingController _baseAddTask = TextEditingController();
+    TextEditingController _id = TextEditingController();
   List<TextEditingController> _addedTextFieldControllers = [];
 
   @override
@@ -127,11 +131,14 @@ class _SubTaskState extends State<SubTask> {
           ],
         );
       },
+    
     );
   }
 
   void _addData() {
     final data = Model(
+      id: _id.text.toString(),
+      baseAddTask: _baseAddTask.text.toString(),
       selectedDate: _subTaskName.text.toString(),
       subTaskName: _subTaskName.text.toString(),
       AddSubTask: _addSubTask.text.toString(),

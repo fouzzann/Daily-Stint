@@ -83,7 +83,7 @@ flutter:
     - asset/download.jpeg
     - asset/istockphoto-1365619500-640x640.jpg
     - asset/cartoon-icon-calendar-3d-rendering-5416156.jpg
-    - asset/card.webp
+    - asset/card 2.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

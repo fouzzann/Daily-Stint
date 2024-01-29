@@ -37,7 +37,15 @@ class _CustomState extends State<DayEdit> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(backgroundColor: Color(0xFFE6D7F1)),
+        appBar: AppBar(
+          title: Text('Edit Plan',
+          style: TextStyle(fontSize: 25,
+          fontWeight: FontWeight.w600, 
+          color:  Color.fromARGB(255, 38, 6, 80),),
+        ),
+        centerTitle: true,
+          backgroundColor: Color.fromARGB(255, 192, 161, 214),
+          ),
         backgroundColor: Color(0xFFE6D7F1),
         body: SingleChildScrollView(
           child: Column(
@@ -106,29 +114,48 @@ class _CustomState extends State<DayEdit> {
                   ],
                 ),
               ),
-              ElevatedButton(
-
-                onPressed: () {
-                  if (_addedTextFieldControllers.length<9999999) {
-                    setState(() {                      
-                     _addedTextFieldControllers.add(TextEditingController());
-                     textFields.add(buildTextField(_addedTextFieldControllers.length - 1,));
-
-                    }
-                   );
-                  }
-                },
-                child: Text("+ Add Plan's",
+              // Container(decoration: BoxDecoration(),
+              //   height: 80,
+              //   width: 390,
+              //   child: ElevatedButton(
+                
+              //     onPressed: () {
+              //       if (_addedTextFieldControllers.length<9999999) {
+              //         setState(() {                      
+              //          _addedTextFieldControllers.add(TextEditingController());
+              //          textFields.add(buildTextField(_addedTextFieldControllers.length - 1,));
+                
+              //         }
+              //        );
+              //       }
+              //     },
+              //     child: Text("+ Add Plan's",
+              //     style: TextStyle(
+              //       color: Colors.white
+              //     ),),
+              //     style: ButtonStyle(
+              //       backgroundColor:  MaterialStateProperty.all<Color>(Color.fromARGB(255, 55, 206, 68),
+              //       ),
+                
+              //     ),
+              //               ),
+              // ),
+              Container(
+                height: 80,
+                width: 390,
+                child: Center(child: Text('Click here to Add plan',
                 style: TextStyle(
-                  color: Colors.white
-                ),),
-                style: ButtonStyle(
-                  backgroundColor:  MaterialStateProperty.all<Color>(Color.fromARGB(255, 55, 206, 68),
-                  ),
-
+              fontWeight: FontWeight.w600,
+              color: Colors.white,fontSize: 17           
+              ),              )),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10), 
+                  color: Colors.green
                 ),
-            ),
-            SizedBox(height:69),
+                
+              ),
+              
+            SizedBox(height:40),
             ElevatedButton(onPressed: ()async{
               widget.updateModel.selectedDate = _dateController.text.toString();
               widget.updateModel.planName = _PlanNameController.text.toString();
@@ -141,6 +168,7 @@ class _CustomState extends State<DayEdit> {
            
             ),
             ),
+            SizedBox(height: 10)
             ],
           ),
         ),

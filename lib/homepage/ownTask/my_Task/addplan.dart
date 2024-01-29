@@ -1,6 +1,6 @@
 
 import 'package:daily_stint_2/Hive/model.dart';
-import 'package:daily_stint_2/homepage/ownTask/mytask.dart';
+import 'package:daily_stint_2/homepage/ownTask/my_Task/mytask.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
@@ -21,6 +21,8 @@ class _CustomState extends State<Day> {
   TextEditingController _optionNameController = TextEditingController();
   TextEditingController _subTaskName = TextEditingController();
   TextEditingController _addSubTask = TextEditingController();
+  TextEditingController _baseAddTask = TextEditingController();
+  TextEditingController _id = TextEditingController();
   List<TextEditingController> _addedTextFieldControllers = [];
  
   final _formKey = GlobalKey<FormState>();
@@ -28,16 +30,19 @@ class _CustomState extends State<Day> {
   List<Widget> textFields = [];
   DateTime selectedDate = DateTime.now();
   @override
+
   void initState() {
-     _dateController = TextEditingController(
-      text: DateFormat(
-        'dd-mm-yyyy',   
-      ).format(DateTime.now())  
-      );
+     super.initState();
+    _dateController = TextEditingController(
+    text: DateFormat(
+      'dd-MMM-yyyy',
+    ).format(DateTime.now()),
+  );
     _addedTextFieldControllers = [TextEditingController()];
-   
+   _PlanNameController = TextEditingController();
     super.initState();
   }
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -46,10 +51,12 @@ class _CustomState extends State<Day> {
           title: Text('Add Plan',
           style: TextStyle(fontSize: 25,
           fontWeight: FontWeight.w600, 
-          color:  Color.fromARGB(255, 38, 6, 80),),
+          color:  Color.fromARGB(255, 38, 6, 80),
+          ),
         ),
         centerTitle: true,
-          backgroundColor: Color.fromARGB(255, 192, 161, 214),),
+          backgroundColor: Color.fromARGB(255, 192, 161, 214),
+          ),
         backgroundColor: Color(0xFFE6D7F1),
         body: SingleChildScrollView(
           child: Column(
@@ -83,36 +90,38 @@ class _CustomState extends State<Day> {
                 child: Column(            
                   children: [
                     Text(''),
+                    
                     Padding(
                       padding: const EdgeInsets.all(9.0),
                       child: Container(
                       
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            
-                            
-                          ),
+                          
                           borderRadius: BorderRadius.circular(8)
-                        ),
-                        child: TextFormField(
-                          controller: _PlanNameController,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator:(Value){
-                        if(Value == null|| Value.isEmpty){
-                          return "Please Enter Your Plan Name";
-                        }
-                        return null;
-                        } ,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: " Add Plan Name", 
+                        ), 
+                        child: Container(
+                          height: 100,
+                          child: Card(                          
+                            child: TextFormField(
+                              controller: _PlanNameController,
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              validator:(Value){
+                            if(Value == null|| Value.isEmpty){
+                              return "Please Enter Your Plan Name";
+                            }
+                            return null;
+                            },
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                
+                                hintText: " Add Plan Name", 
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 50,
-                    ),
+                  
                     Column(
                       children: textFields,
                     )
@@ -130,15 +139,14 @@ class _CustomState extends State<Day> {
                     }
                    );
                   }
-            } ,
+            } ,           
+            
               child: Container(
                         child: Center(child: Text("Click here to Add plan",
                         style: TextStyle(
               fontWeight: FontWeight.w600,
-              color: Colors.white,fontSize: 17
-              
-              ),
-              
+              color: Colors.white,fontSize: 17           
+              ),              
               )),    
                 height: 80,
                 width: 390,
@@ -149,13 +157,12 @@ class _CustomState extends State<Day> {
                 ) ,
               ),
             ),
-            SizedBox(height:69),
+            SizedBox(height:40),
             ElevatedButton(onPressed: (){
               if(_formKey.currentState!.validate()){
                 saveToDataBase();
                 
-              }             
-              
+              }                          
             },
              child: Text('Save',
                          style: TextStyle(color: Colors.white),),
@@ -178,12 +185,18 @@ class _CustomState extends State<Day> {
       child: Expanded(
         child: Container(height: 100,
           decoration: BoxDecoration(
-          color: Color.fromARGB(255, 131, 100, 146),
+          color: Color.fromARGB(255, 214, 193, 224), 
           borderRadius: BorderRadius.circular(10)  
-        ),
-          child: Padding(
+        ), 
+          child: Padding( 
             padding: const EdgeInsets.only(left: 20),
-            child: TextFormField(
+            child: TextFormField(autovalidateMode:AutovalidateMode.onUserInteraction, 
+               validator:(Value){
+                        if(Value == null|| Value.isEmpty){ 
+                          return "Please Add Plan before saving"; 
+                        }
+                        return null; 
+                        } ,
                controller: _addedTextFieldControllers[intex],
               decoration: InputDecoration(            
                 hintText: "Tap To Add Plan +",             
@@ -196,7 +209,10 @@ class _CustomState extends State<Day> {
     );
   }
   void saveToDataBase()async{
-    final myData = Model(selectedDate: _dateController.text.toString(),
+    final myData = Model(
+      id: UniqueKey().toString(),
+      baseAddTask: _baseAddTask.text.toString(),
+      selectedDate: _dateController.text.toString(),
     subTaskName: _subTaskName.text.toString(), 
     AddSubTask: _addSubTask.text.toString(),  
      planName: _PlanNameController.text.toString(),
@@ -207,7 +223,7 @@ class _CustomState extends State<Day> {
     Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MyTask()));
     print(box);
   }
-}
+} 
 
 
 

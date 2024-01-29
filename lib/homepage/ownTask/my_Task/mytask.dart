@@ -2,11 +2,10 @@
 import 'package:daily_stint_2/Hive/box.dart';
 import 'package:daily_stint_2/Hive/model.dart';
 import 'package:daily_stint_2/homepage/home.dart';
-import 'package:daily_stint_2/homepage/ownTask/2%20options/addplan.dart';
-import 'package:daily_stint_2/homepage/ownTask/2%20options/edittask.dart';
-import 'package:daily_stint_2/homepage/ownTask/2%20options/details.dart';
+import 'package:daily_stint_2/homepage/ownTask/my_Task/addplan.dart';
+import 'package:daily_stint_2/homepage/ownTask/my_Task/edittask.dart';
+import 'package:daily_stint_2/homepage/ownTask/my_Task/details.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 
 class MyTask extends StatefulWidget {
@@ -36,7 +35,8 @@ class _myTaskState extends State<MyTask> {
           child: Text('My Task',
           style: TextStyle(fontSize: 25,
           fontWeight: FontWeight.w600, 
-          color:  Color.fromARGB(255, 38, 6, 80),),
+          color:  Color.fromARGB(255, 38, 6, 80),
+          ),
                        
           ),
         ),
@@ -62,7 +62,7 @@ class _myTaskState extends State<MyTask> {
                     ),
                     child: Container(
                       decoration: BoxDecoration(  borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(image: AssetImage('asset/card.webp'), 
+                        image: DecorationImage(image: AssetImage('asset/card 2.jpg'), 
                         fit: BoxFit.cover
                         
                         )
@@ -108,7 +108,7 @@ class _myTaskState extends State<MyTask> {
                                padding: const EdgeInsets.only(left: 10),
                                child: Text(myData[index].planName.toString(),
                                style: TextStyle(color: Colors.white,
-                               fontSize: 25,
+                               fontSize: 35,
                                fontWeight: FontWeight.w900,
                                ),
 
@@ -121,7 +121,9 @@ class _myTaskState extends State<MyTask> {
                            child: Text(myData[index].selectedDate.toString(),
                            style: TextStyle(
                             fontWeight: FontWeight.w800,
-                            fontSize: 15
+                            fontSize: 20,
+                            color: Colors.white,
+                            
                            ),),
                          ),
                          

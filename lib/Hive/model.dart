@@ -18,12 +18,18 @@ class Model extends HiveObject{
   String subTaskName;
    @HiveField(4)
   String AddSubTask;
+   @HiveField(5)
+  String baseAddTask;
+   @HiveField(6)
+  String id;
 
   Model({
     required this.selectedDate,
     required this.planName,
     required this.buildTextField,
     required this.subTaskName,
-    required this.AddSubTask
+    required this.AddSubTask,
+    required this.baseAddTask,
+    required this.id
     });
 }

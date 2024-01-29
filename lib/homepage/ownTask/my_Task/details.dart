@@ -1,27 +1,54 @@
 import 'package:daily_stint_2/Hive/model.dart';
-import 'package:daily_stint_2/homepage/ownTask/mytask.dart';
+import 'package:daily_stint_2/homepage/my_activity.dart';
+import 'package:daily_stint_2/homepage/ownTask/my_Task/congrats.dart';
+import 'package:daily_stint_2/homepage/ownTask/my_Task/mytask.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyDetails extends StatefulWidget {
   final Model name;
 
   const MyDetails({Key? key, required this.name});
 
+
   @override
   State<MyDetails> createState() => _MyDetailsState();
 }
 
 class _MyDetailsState extends State<MyDetails> {
+  
   List<bool?> isCompleted = [];
+
   @override
   void initState() {
-  super.initState();
-  
-  isCompleted = List.generate(
-    widget.name.buildTextField.length,
-    (index) => null,
-  );
-}
+    loadRadioState();
+    super.initState();
+
+    isCompleted = List.generate(
+      widget.name.buildTextField.length,
+      (index) => null,
+    );
+  }
+
+  void loadRadioState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isCompleted = List.generate(
+        widget.name.buildTextField.length,
+        (index) => prefs.getBool('${widget.name.id}_radioState_$index') ?? null,
+      );
+    });
+  }
+
+  void saveRadioState(int index, bool? value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('${widget.name.id}_radioState_$index', value?? false);
+  }
+
+ 
+
+
+  @override
   Widget build(BuildContext context) {
     List<String> filteredBuildTextField =
         widget.name.buildTextField.where((value) => value.isNotEmpty).toList();
@@ -59,13 +86,13 @@ class _MyDetailsState extends State<MyDetails> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(5.0),
-                    child: Card(elevation: 10,
+                    child: Card(
+                      elevation: 10,
                       color: Colors.white,
                       child: Column(
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                             
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
                                 color: Colors.white,
@@ -84,39 +111,55 @@ class _MyDetailsState extends State<MyDetails> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              
-                              Radio(value: true, groupValue: isCompleted[index]??false, onChanged: (value){
-                                setState(() {
-                                  isCompleted[index] = value!;
-                                }
-                                );
-                              },activeColor: Colors.green,
-                              ),Text('Completed',
-                              style: TextStyle(color: Colors.green),),
-                               Radio(value: false, groupValue: isCompleted[index]??false, onChanged: (value){
-                                setState(() {
-                                  isCompleted[index] = value!;
-                                });
-                              },activeColor: Colors.red,
-                               ),Text('Not Completed',
-                               style: TextStyle(color: Colors.red),),
+                              Radio(
+                                value: true,
+                                groupValue: isCompleted[index] ?? false,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isCompleted[index] = value!;
+                                    saveRadioState(index, value);
+                                  });
+                                },
+                                activeColor: Colors.green,
+                              ),
+                              Text(
+                                'Completed',
+                                style: TextStyle(color: Colors.green),
+                              ),
+                              Radio(
+                                value: false,
+                                groupValue: isCompleted[index] ?? false,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isCompleted[index] = value!;
+                                    saveRadioState(index, value);
+                                  });
+                                },
+                                activeColor: Colors.red,
+                              ),
+                              Text(
+                                'Not Completed',
+                                style: TextStyle(color: Colors.red),
+                              ),
                             ],
-                             )
+                          )
                         ],
                       ),
                     ),
                   );
                 },
               ),
-            ), 
+            ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 10),  
+              padding: const EdgeInsets.only(bottom: 10),
               child: ElevatedButton(
                 onPressed: () {
-                 
-                }, 
-                child: Text('Complete',
-                style: TextStyle(color: Colors.green),), 
+                 Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>CongratsScreen()));
+                },
+                child: Text(
+                  'Complete',
+                  style: TextStyle(color: Colors.green),
+                ),
               ),
             ),
           ],

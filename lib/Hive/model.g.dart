@@ -22,13 +22,15 @@ class ModelAdapter extends TypeAdapter<Model> {
       buildTextField: (fields[2] as List).cast<String>(),
       subTaskName: fields[3] as String,
       AddSubTask: fields[4] as String,
+      baseAddTask: fields[5] as String,
+      id: fields[6] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Model obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.selectedDate)
       ..writeByte(1)
@@ -38,7 +40,11 @@ class ModelAdapter extends TypeAdapter<Model> {
       ..writeByte(3)
       ..write(obj.subTaskName)
       ..writeByte(4)
-      ..write(obj.AddSubTask);
+      ..write(obj.AddSubTask)
+      ..writeByte(5)
+      ..write(obj.baseAddTask)
+      ..writeByte(6)
+      ..write(obj.id);
   }
 
   @override
