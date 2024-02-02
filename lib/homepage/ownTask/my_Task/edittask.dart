@@ -114,32 +114,7 @@ class _CustomState extends State<DayEdit> {
                   ],
                 ),
               ),
-              // Container(decoration: BoxDecoration(),
-              //   height: 80,
-              //   width: 390,
-              //   child: ElevatedButton(
-                
-              //     onPressed: () {
-              //       if (_addedTextFieldControllers.length<9999999) {
-              //         setState(() {                      
-              //          _addedTextFieldControllers.add(TextEditingController());
-              //          textFields.add(buildTextField(_addedTextFieldControllers.length - 1,));
-                
-              //         }
-              //        );
-              //       }
-              //     },
-              //     child: Text("+ Add Plan's",
-              //     style: TextStyle(
-              //       color: Colors.white
-              //     ),),
-              //     style: ButtonStyle(
-              //       backgroundColor:  MaterialStateProperty.all<Color>(Color.fromARGB(255, 55, 206, 68),
-              //       ),
-                
-              //     ),
-              //               ),
-              // ),
+              
               Container(
                 height: 80,
                 width: 390,
@@ -162,10 +137,10 @@ class _CustomState extends State<DayEdit> {
               widget.updateModel.buildTextField = _addedTextFieldControllers.map((controller) => controller.text).toList();
               await widget.updateModel.save();
               Navigator.pop(context);
-            }, child: Text('Update',
+            }, 
+            child: Text('Update',
             style: TextStyle(color: Colors.white),),
-            style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF563267)),
-           
+            style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF563267)),          
             ),
             ),
             SizedBox(height: 10)
@@ -175,6 +150,7 @@ class _CustomState extends State<DayEdit> {
       ),
     );
   }
+
   Widget buildTextField(int intex) {
     return Padding(
       padding: const EdgeInsets.all(9.0),
@@ -196,7 +172,7 @@ class _CustomState extends State<DayEdit> {
       ),
     );
   }
- 
+  
 }
 
 

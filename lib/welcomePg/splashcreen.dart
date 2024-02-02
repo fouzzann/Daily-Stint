@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:daily_stint_2/authentication/login.dart';
 import 'package:daily_stint_2/homepage/home.dart';
 import 'package:daily_stint_2/main.dart';
 import 'package:daily_stint_2/welcomePg/welcomscrn.dart';

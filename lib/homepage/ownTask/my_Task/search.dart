@@ -1,5 +1,5 @@
 import 'package:daily_stint_2/homepage/home.dart';
-import 'package:daily_stint_2/homepage/profile.dart';
+import 'package:daily_stint_2/settings.dart/profile.dart';
 import 'package:flutter/material.dart';
 
 class Search extends StatefulWidget {
@@ -67,7 +67,7 @@ class _SearchState extends State<Search> {
                       break;
                   }
                 },
-                items: [
+                items: [ 
                   BottomNavigationBarItem(
                     icon: Icon(Icons.home),
                     label: 'Home',
@@ -77,8 +77,8 @@ class _SearchState extends State<Search> {
                     label: 'Search',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.person),
-                    label: 'Profile',   
+                    icon: Icon(Icons.settings),
+                  label: 'Settings',   
                   ),
                 ],
               ),))

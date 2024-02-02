@@ -1,9 +1,8 @@
-import 'dart:ffi';
+
 
 import 'package:daily_stint_2/Hive/box.dart';
 import 'package:daily_stint_2/Hive/model.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
 class SubTask extends StatefulWidget {
@@ -14,11 +13,17 @@ class SubTask extends StatefulWidget {
 }
 
 class _SubTaskState extends State<SubTask> {
+ TextEditingController _DiaryNameController= TextEditingController();
+  TextEditingController _AddDiaryController = TextEditingController();
   TextEditingController _subTaskName = TextEditingController();
   TextEditingController _addSubTask = TextEditingController();
   TextEditingController _baseAddTask = TextEditingController();
-    TextEditingController _id = TextEditingController();
+   TextEditingController _id = TextEditingController();
   List<TextEditingController> _addedTextFieldControllers = [];
+     TextEditingController _AdmPhoto = TextEditingController();
+        TextEditingController _AdmTitle = TextEditingController();
+           TextEditingController _AdmDescription = TextEditingController();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -137,6 +142,11 @@ class _SubTaskState extends State<SubTask> {
 
   void _addData() {
     final data = Model(
+      AdmPhoto: _AdmPhoto.text.toString(),
+      AdmTitile: _AdmTitle.text.toString(),
+      AdmDescrption: _AdmDescription.text.toString(),
+        AddDiary: _AddDiaryController.text.toString(),
+      DiaryName:_DiaryNameController.text.toString(),
       id: _id.text.toString(),
       baseAddTask: _baseAddTask.text.toString(),
       selectedDate: _subTaskName.text.toString(),

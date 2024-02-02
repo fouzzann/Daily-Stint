@@ -24,13 +24,18 @@ class ModelAdapter extends TypeAdapter<Model> {
       AddSubTask: fields[4] as String,
       baseAddTask: fields[5] as String,
       id: fields[6] as String,
+      DiaryName: fields[7] as String,
+      AddDiary: fields[8] as String,
+      AdmPhoto: fields[9] as String,
+      AdmTitile: fields[10] as String,
+      AdmDescrption: fields[11] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, Model obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.selectedDate)
       ..writeByte(1)
@@ -44,7 +49,17 @@ class ModelAdapter extends TypeAdapter<Model> {
       ..writeByte(5)
       ..write(obj.baseAddTask)
       ..writeByte(6)
-      ..write(obj.id);
+      ..write(obj.id)
+      ..writeByte(7)
+      ..write(obj.DiaryName)
+      ..writeByte(8)
+      ..write(obj.AddDiary)
+      ..writeByte(9)
+      ..write(obj.AdmPhoto)
+      ..writeByte(10)
+      ..write(obj.AdmTitile)
+      ..writeByte(11)
+      ..write(obj.AdmDescrption);
   }
 
   @override

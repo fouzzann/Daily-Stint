@@ -1,5 +1,4 @@
 import 'package:daily_stint_2/Hive/model.dart';
-import 'package:daily_stint_2/homepage/my_activity.dart';
 import 'package:daily_stint_2/homepage/ownTask/my_Task/congrats.dart';
 import 'package:daily_stint_2/homepage/ownTask/my_Task/mytask.dart';
 import 'package:flutter/material.dart';

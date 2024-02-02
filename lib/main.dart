@@ -1,6 +1,5 @@
 
 import 'package:daily_stint_2/Hive/model.dart';
-import 'package:daily_stint_2/homepage/home.dart';
 import 'package:daily_stint_2/welcomePg/splashcreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

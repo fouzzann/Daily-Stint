@@ -1,9 +1,9 @@
 
-import 'package:daily_stint_2/categories/categories.dart';
+import 'package:daily_stint_2/admin/categories.dart';
 import 'package:daily_stint_2/homepage/ownTask/my_Task/search.dart';
-import 'package:daily_stint_2/homepage/profile.dart';
+import 'package:daily_stint_2/settings.dart/profile.dart';
 import 'package:daily_stint_2/homepage/subtask.dart';
-import 'package:daily_stint_2/homepage/diary.dart';
+import 'package:daily_stint_2/diary/diary.dart';
 import 'package:daily_stint_2/homepage/ownTask/my_Task/mytask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -252,8 +252,8 @@ class _MyHomeState extends State<MyHome> {
                   label: 'Search',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  label: 'Profile',  
+                  icon: Icon(Icons.settings),
+                  label: 'Settings',  
                 ),
               ],
             ),

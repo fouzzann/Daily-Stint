@@ -1,14 +1,11 @@
 
-
 import 'package:daily_stint_2/authentication/shared_pref.dart';
 import 'package:daily_stint_2/homepage/home.dart';
 import 'package:daily_stint_2/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(MyApp());
-}
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -29,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
    final _formKey = GlobalKey<FormState>();
   TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  // ignore: unused_field
   bool _isLoggedIn = false;
   
   @override

@@ -6,24 +6,25 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class Day extends StatefulWidget {
-  const Day({Key? key}) : super(key: key);
+class AddPlan extends StatefulWidget {
+  const AddPlan({Key? key}) : super(key: key);
 
   @override
-  State<Day> createState() => _CustomState();
+  State<AddPlan> createState() => _CustomState();
 }
 
-class _CustomState extends State<Day> {
-
+class _CustomState extends State<AddPlan> {
+  TextEditingController _AddDiaryController = TextEditingController();
+   TextEditingController _DiaryNameController= TextEditingController();
   TextEditingController _dateController = TextEditingController();
   TextEditingController _PlanNameController = TextEditingController();
-  TextEditingController _AddedTextFieldController = TextEditingController();
-  TextEditingController _optionNameController = TextEditingController();
   TextEditingController _subTaskName = TextEditingController();
   TextEditingController _addSubTask = TextEditingController();
   TextEditingController _baseAddTask = TextEditingController();
-  TextEditingController _id = TextEditingController();
   List<TextEditingController> _addedTextFieldControllers = [];
+  TextEditingController _AdmPhoto= TextEditingController();
+  TextEditingController _AdmTitle = TextEditingController();
+  TextEditingController _AdmDescription = TextEditingController();
  
   final _formKey = GlobalKey<FormState>();
   DateTime today = DateTime.now();
@@ -85,17 +86,14 @@ class _CustomState extends State<Day> {
               ),
               SizedBox(
                 height: 30,
-              ),
-              Form(key:_formKey,
+               ),
+               Form(key:_formKey,
                 child: Column(            
-                  children: [
-                    Text(''),
-                    
+                  children: [                
                     Padding(
                       padding: const EdgeInsets.all(9.0),
-                      child: Container(
-                      
-                        decoration: BoxDecoration(
+                      child: Container(                     
+                      decoration: BoxDecoration(
                           
                           borderRadius: BorderRadius.circular(8)
                         ), 
@@ -132,6 +130,7 @@ class _CustomState extends State<Day> {
             GestureDetector(onTap:(){
               if (_addedTextFieldControllers.length<9999999) {
                     setState(() {
+                      // ignore: unused_local_variable
                       List<TextEditingController> controllers = List.from(_addedTextFieldControllers);
                      _addedTextFieldControllers.add(TextEditingController());
                      textFields.add(buildTextField(_addedTextFieldControllers.length - 1,));
@@ -210,6 +209,12 @@ class _CustomState extends State<Day> {
   }
   void saveToDataBase()async{
     final myData = Model(
+       AdmPhoto: _AdmPhoto.text.toString(),
+      AdmTitile: _AdmTitle.text.toString(),
+      AdmDescrption: _AdmDescription.text.toString(),
+      // DiaryDate: _DiaryDateController.text.toString(),
+      AddDiary: _AddDiaryController.text.toString(),
+      DiaryName:_DiaryNameController.text.toString(),
       id: UniqueKey().toString(),
       baseAddTask: _baseAddTask.text.toString(),
       selectedDate: _dateController.text.toString(),

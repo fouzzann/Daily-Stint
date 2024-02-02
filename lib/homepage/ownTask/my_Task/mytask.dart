@@ -41,9 +41,8 @@ class _myTaskState extends State<MyTask> {
           ),
         ),
           backgroundColor:Color.fromARGB(255, 192, 161, 214),           
-        ),floatingActionButton: FloatingActionButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (ctx){return Day();},),);},child: Icon(Icons.add),),
-        body:ValueListenableBuilder<Box<Model>>(valueListenable: Boxes.getData().listenable(),
-        // valueListenable: Hive.box<Model>('model').listenable(),  
+        ),floatingActionButton: FloatingActionButton(onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (ctx){return AddPlan();},),);},child: Icon(Icons.add),),
+        body:ValueListenableBuilder<Box<Model>>(valueListenable: Boxes.getData().listenable(), 
         builder: (context, box, _) { 
           var myData = box.values.toList().cast<Model>();
           return ListView.builder(
