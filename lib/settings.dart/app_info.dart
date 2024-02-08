@@ -17,16 +17,6 @@ class _AppInfoState extends State<AppInfo> {
           child: Title(
             color: Colors.black, child: Text('''
       
-      
-
-
-
-
-
-
-
-
-      
       **App Name:** Daily Stint
       
       **Description:**

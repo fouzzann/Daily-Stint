@@ -1,53 +1,45 @@
-
 import 'package:daily_stint_2/Hive/model.dart';
-import 'package:daily_stint_2/diary/diary_list.dart';
-import 'package:daily_stint_2/homepage/ownTask/my_Task/mytask.dart';
+import 'package:daily_stint_2/diary/diary_interface.dart';
+import 'package:daily_stint_2/diary/saved_diary.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class Diary extends StatefulWidget {
-  const Diary({Key? key}) : super(key: key);
+
+class DiaryEdit extends StatefulWidget {
+ final DrModel editDiary;
+  const DiaryEdit({Key? key,required this.editDiary}) : super(key: key);
 
   @override
-  State<Diary> createState() => _CustomState();
+  State<DiaryEdit> createState() => _DiaryEditState();
 }
 
-class _CustomState extends State<Diary> {
+class _DiaryEditState extends State<DiaryEdit> {
+  
   TextEditingController _DiaryDateController = TextEditingController();
   TextEditingController _AddDiaryController = TextEditingController();
-  TextEditingController _dateController = TextEditingController();
-  TextEditingController _PlanNameController = TextEditingController();
   TextEditingController _DiaryNameController= TextEditingController();
-  TextEditingController _optionNameController = TextEditingController();
-  TextEditingController _subTaskName = TextEditingController();
-  TextEditingController _addSubTask = TextEditingController();
-  TextEditingController _baseAddTask = TextEditingController();
-  TextEditingController _id = TextEditingController();
-  List<TextEditingController> _addedTextFieldControllers = [];
-  TextEditingController _AdmPhoto= TextEditingController();
-  TextEditingController _AdmTitle = TextEditingController();
-  TextEditingController _AdmDescription = TextEditingController();
   
- 
   final _formKey = GlobalKey<FormState>();
   DateTime today = DateTime.now();
   List<Widget> textFields = [];
   DateTime selectedDate = DateTime.now();
   @override
-
   void initState() {
+    _AddDiaryController.text = widget.editDiary.AddDiary;
+    _DiaryDateController.text = widget.editDiary.DiaryDate;
+    _DiaryNameController.text = widget.editDiary.DiaryName;
+
      super.initState();
-    _dateController = TextEditingController(
+    _DiaryDateController = TextEditingController(
     text: DateFormat(
-      'dd-MMM-yyyy',
+      "dd-MMM-yyyy", 
     ).format(DateTime.now()),
-  );
-  
+  ); 
   super.initState();
   }
-  
+       
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -178,17 +170,20 @@ class _CustomState extends State<Diary> {
                    
                   ],
                 ),
-              ),
-           
-           
+              ),          
             SizedBox(height:40),
-            ElevatedButton(onPressed: (){
+            ElevatedButton(onPressed: ()async{
+              
+              await widget.editDiary.save();
               if(_formKey.currentState!.validate()){
-                saveToDataBase();
-                
+              
+                widget.editDiary.AddDiary = _AddDiaryController.text.toString();
+              widget.editDiary.DiaryDate = _DiaryDateController.text.toString();
+              widget.editDiary.DiaryName = _DiaryNameController.text.toString();
+              Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>DiaryList()));
               }                          
             },
-             child: Text('Save',
+             child: Text('Update',
                          style: TextStyle(color: Colors.white),),
             style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF563267)),
             ),
@@ -203,26 +198,20 @@ class _CustomState extends State<Diary> {
       ),
     );
   }
- 
-  void saveToDataBase()async{
-    final myData = Model(
-       AdmPhoto: _AdmPhoto.text.toString(),
-      AdmTitile: _AdmTitle.text.toString(),
-      AdmDescrption: _AdmDescription.text.toString(),
-      // DiaryDate: _DiaryDateController.text.toString(),
+  void saveDiaryDetails()async{
+    final myData = DrModel(
+    
+       
+      DiaryDate: _DiaryDateController.text.toString(),
       AddDiary: _AddDiaryController.text.toString(),
       DiaryName:_DiaryNameController.text.toString(),
-      id: UniqueKey().toString(),
-      baseAddTask: _baseAddTask.text.toString(),
-      selectedDate: _dateController.text.toString(),
-      subTaskName: _subTaskName.text.toString(), 
-      AddSubTask: _addSubTask.text.toString(),  
-      planName: _PlanNameController.text.toString(),
-      buildTextField: _addedTextFieldControllers.map((controller) => controller.text).toList());
-    var box = await Hive.openBox<Model>('model');
+     
+     
+    );
+    var box = await Hive.openBox<DrModel>('drmodel');          
     await box.add(myData);
     // await box.close();
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>DiaryList()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>DiaryInterface()));
     print(box);
   }
 } 
@@ -230,3 +219,4 @@ class _CustomState extends State<Diary> {
 
 
 
+   

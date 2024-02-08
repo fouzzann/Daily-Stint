@@ -22,16 +22,19 @@ class _CategoriesState extends State<Categories> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
+        backgroundColor: Color(0xFFE6D7F1),
+        appBar: AppBar(backgroundColor:  Color(0xFF563267),
           leading: IconButton(onPressed: (){
             Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MyHome()));
           } ,icon: Icon(Icons.arrow_back,
+          color: Colors.white,
        )), 
           title: Padding(
-          padding: const EdgeInsets.only(left:80),
+          padding: const EdgeInsets.only(left:80), 
           child: Text('Categories',
           style: TextStyle(fontSize: 25,
-          fontWeight: FontWeight.w600, 
+          fontWeight: FontWeight.w600,  
+          color: Colors.white
           ),
                        
           ),
@@ -41,6 +44,15 @@ class _CategoriesState extends State<Categories> {
         body:ValueListenableBuilder<Box<Model>>(valueListenable: Boxes.getData().listenable(), 
         builder: (context, box, _) { 
           var myData = box.values.toList().cast<Model>();
+          if(myData.isEmpty){
+            return Center(
+              child: Text("Oopp's..The data were not added by the admin ",
+              style: TextStyle(
+                fontSize: 15,
+               color: Colors.black38,  
+              ),),
+            );
+          }  
           return   Padding(
             padding: const EdgeInsets.all(8.0),
             child: GridView.builder(
@@ -55,43 +67,47 @@ class _CategoriesState extends State<Categories> {
                     return GestureDetector(onTap: (){
                       Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>AdmDetails(Adm: myData[index%myData.length])));
                     },   
-                      child: Container(
-                        decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(image: FileImage(File(myData[index].AdmPhoto.toString()),
-                      ),
-                      fit: BoxFit.cover,
-                    
-                      ),
-                      
-                       ),
-                        child:Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 3),
-                              child: Container(decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.white,
-                                    spreadRadius: 3,
-                                    blurRadius: 53,
-                                    offset: Offset(0, 3)
-                                  )
-                                ]
-                              ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(myData[index].AdmTitile,
-                                  style: TextStyle(fontSize: 35,
-                                  fontWeight: FontWeight.w800,
-                                  color: Colors.black38),
+                      child: Card(
+                        
+                        elevation: 10,
+                        child: Container(
+                          decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(image: FileImage(File(myData[index].AdmPhoto.toString()),
+                        ),
+                        fit: BoxFit.cover,
+                                            
+                        ),
+                        
+                         ),
+                          child:Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 3),
+                                child: Container(decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.white,
+                                      spreadRadius: 3,
+                                      blurRadius: 53,
+                                      offset: Offset(0, 3)
+                                    )
+                                  ]
+                                ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(myData[index].AdmTitile,
+                                    style: TextStyle(fontSize: 35,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.black38),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),                          
-                          ],  
-                        )
+                              ),                          
+                            ],  
+                          )
+                        ),
                       ),
                     );
                   },

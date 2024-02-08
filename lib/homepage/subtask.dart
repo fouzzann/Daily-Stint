@@ -2,6 +2,7 @@
 
 import 'package:daily_stint_2/Hive/box.dart';
 import 'package:daily_stint_2/Hive/model.dart';
+import 'package:daily_stint_2/homepage/home.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -13,79 +14,89 @@ class SubTask extends StatefulWidget {
 }
 
 class _SubTaskState extends State<SubTask> {
- TextEditingController _DiaryNameController= TextEditingController();
-  TextEditingController _AddDiaryController = TextEditingController();
+ 
   TextEditingController _subTaskName = TextEditingController();
   TextEditingController _addSubTask = TextEditingController();
-  TextEditingController _baseAddTask = TextEditingController();
-   TextEditingController _id = TextEditingController();
-  List<TextEditingController> _addedTextFieldControllers = [];
-     TextEditingController _AdmPhoto = TextEditingController();
-        TextEditingController _AdmTitle = TextEditingController();
-           TextEditingController _AdmDescription = TextEditingController();
+ 
   
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'SubTask',
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(leading: IconButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MyHome()));
+        }, icon: Icon(Icons.arrow_back,color: Colors.white,)),
+          backgroundColor:  Color(0xFF563267),
+          title: Text(
+            'SubTask',
+           style: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: Colors.white
+            ),
           ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: ValueListenableBuilder<Box<Model>>(
-        valueListenable: Boxes.getData().listenable(),
-        builder: (context, box, _) {
-          var data = box.values.toList().cast<Model>();
-          return ListView.builder(
-            itemCount: data.length,
-            itemBuilder: (context, index) {
-              return Container(
-                height: 100,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          data[index].subTaskName.toString(),
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        Spacer(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                delete(data[index]);
-                              },
-                              child: Icon(
-                                Icons.delete,
-                                color: Colors.red,
+        body: ValueListenableBuilder<Box<SubModel>>(
+          valueListenable: Boxes2.getData().listenable(),
+          builder: (context, box, _) {
+            var data = box.values.toList().cast<SubModel>();
+            if(data.isEmpty){
+              return
+              Center(
+                child: Text("Ooop's SubTask were not added ", 
+                style: TextStyle(fontSize: 18,  
+                      color: Colors.black38,  ),  
+               ), 
+              ); 
+            }
+            return ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  height: 100,
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            data[index].subTaskName.toString(),
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          Spacer(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  delete(data[index]);
+                                },
+                                child: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        Text(data[index].AddSubTask.toString()),
-                      ],
+                            ],
+                          ),
+                          Text(data[index].AddSubTask.toString()),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          _showMyDialog(context);
-        },
-        child: Icon(Icons.add),
+                );
+              },
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(backgroundColor:  Color(0xFF563267),
+          onPressed: () async {
+            _showMyDialog(context);
+          },
+          child: Icon(Icons.add,
+          color: Colors.white,),  
+        ),
       ),
     );
   }
@@ -141,21 +152,13 @@ class _SubTaskState extends State<SubTask> {
   }
 
   void _addData() {
-    final data = Model(
-      AdmPhoto: _AdmPhoto.text.toString(),
-      AdmTitile: _AdmTitle.text.toString(),
-      AdmDescrption: _AdmDescription.text.toString(),
-        AddDiary: _AddDiaryController.text.toString(),
-      DiaryName:_DiaryNameController.text.toString(),
-      id: _id.text.toString(),
-      baseAddTask: _baseAddTask.text.toString(),
-      selectedDate: _subTaskName.text.toString(),
+    final data = SubModel(
+     
       subTaskName: _subTaskName.text.toString(),
       AddSubTask: _addSubTask.text.toString(),
-      planName: _subTaskName.text.toString(),
-      buildTextField: _addedTextFieldControllers.map((controller) => controller.text).toList(),
+      
     );
-    final box = Boxes.getData();
+    final box = Boxes2.getData();
     box.add(data);
     data.save();
     _subTaskName.clear();
@@ -163,7 +166,7 @@ class _SubTaskState extends State<SubTask> {
     print(box);
   }
 
-  void delete(Model model) async {
+  void delete(SubModel model) async {
     await model.delete();
   }
 }

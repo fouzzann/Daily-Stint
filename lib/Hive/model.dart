@@ -11,40 +11,78 @@ class Model extends HiveObject{
   String planName;
   @HiveField(2)
   List<String> buildTextField;
-  @HiveField(3)
-  String subTaskName;
-   @HiveField(4)
-  String AddSubTask;
+  
    @HiveField(5)
   String baseAddTask;
    @HiveField(6)
   String id;
   @HiveField(7)
-  String DiaryName;
-  @HiveField(8)
-  String AddDiary;
-  @HiveField(9)
   String AdmPhoto;
-  @HiveField(10)
+  @HiveField(8)
   String AdmTitile;
-  @HiveField(11)
+  @HiveField(9)
   String AdmDescrption;
-  @HiveField(12)
   
+
 
 
   Model({
     required this.selectedDate,
     required this.planName,
     required this.buildTextField,
-    required this.subTaskName,
-    required this.AddSubTask,
+    
     required this.baseAddTask,
     required this.id,
-    required this.DiaryName,
-    required this.AddDiary,
     required this.AdmPhoto,
     required this.AdmTitile,
-    required this.AdmDescrption
+    required this.AdmDescrption,
     });
+   
+
+}
+
+
+
+@HiveType(typeId: 1)
+
+class DrModel extends HiveObject{
+  @HiveField(0)
+  String DiaryName;
+  @HiveField(1)
+  String AddDiary;
+  @HiveField(2)
+  String DiaryDate;
+
+
+  DrModel({
+    required this.DiaryName,
+    required this.AddDiary,
+    required this.DiaryDate
+    });
+
+
+
+
+    
+}
+
+
+@HiveType(typeId: 2)
+
+class SubModel extends HiveObject{
+ 
+ @HiveField(0)
+  String subTaskName;
+   @HiveField(1)
+  String AddSubTask;
+
+  SubModel({
+    required this.subTaskName,
+    required this.AddSubTask,
+    });
+
+
+
+
+    
 }

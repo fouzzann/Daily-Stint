@@ -13,10 +13,8 @@ class Admin extends StatefulWidget {
 }
 class _AdminState extends State<Admin> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _AddDiaryController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
   TextEditingController _PlanNameController = TextEditingController();
-  TextEditingController _DiaryNameController= TextEditingController();
   TextEditingController _subTaskName = TextEditingController();
   TextEditingController _addSubTask = TextEditingController();
   TextEditingController _baseAddTask = TextEditingController();
@@ -148,17 +146,16 @@ class _AdminState extends State<Admin> {
   }
   void AdminDatabase()async{
     final myData = Model(
-      
+      // DiaryDate: _DiaryDateController.text.toString(),
        AdmPhoto: _AdmPhoto.text.toString(),
       AdmTitile: _AdmTitle.text.toString(),
       AdmDescrption: _AdmDescription.text.toString(),
-      AddDiary: _AddDiaryController.text.toString(),
-      DiaryName:_DiaryNameController.text.toString(),
+      // AddDiary: _AddDiaryController.text.toString(),
+      // DiaryName:_DiaryNameController.text.toString(),
       id: UniqueKey().toString(),
       baseAddTask: _baseAddTask.text.toString(),
       selectedDate: _dateController.text.toString(),
-    subTaskName: _subTaskName.text.toString(), 
-    AddSubTask: _addSubTask.text.toString(),  
+   
      planName: _PlanNameController.text.toString(),
       buildTextField: _addedTextFieldControllers.map((controller) => controller.text).toList());
     var box = await Hive.openBox<Model>('model');

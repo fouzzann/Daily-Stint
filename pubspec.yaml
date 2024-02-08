@@ -47,6 +47,8 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   image_picker: ^1.0.7
   permission_handler: ^11.2.0
+  flutter_spinkit: ^5.2.0
+  carousel_slider: ^4.2.1
 
 
 dev_dependencies:
@@ -99,6 +101,14 @@ flutter:
     - asset/user image profile.png
     - asset/admin.jpeg
     - asset/admin2.jpeg
+    - asset/Saved Diary.png
+    - asset/Diary List.png
+    - asset/Add Diary.jpg
+    - asset/add image 2.jpg
+    - asset/Empty list img.jpg
+    - asset/Saved Diary 2.jpg
+ 
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

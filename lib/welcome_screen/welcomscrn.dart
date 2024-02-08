@@ -1,5 +1,5 @@
 
-import 'package:daily_stint_2/welcomePg/planing.dart';
+import 'package:daily_stint_2/welcome_screen/planing.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage  extends StatelessWidget {

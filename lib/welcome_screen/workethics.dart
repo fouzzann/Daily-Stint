@@ -1,5 +1,5 @@
 
-import 'package:daily_stint_2/welcomePg/LetsGo.dart';
+import 'package:daily_stint_2/welcome_screen/LetsGo.dart';
 import 'package:flutter/material.dart';
 
 class EthicksPage  extends StatelessWidget {

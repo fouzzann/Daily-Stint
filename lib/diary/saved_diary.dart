@@ -1,57 +1,67 @@
 import 'package:daily_stint_2/Hive/box.dart';
 import 'package:daily_stint_2/Hive/model.dart';
-import 'package:daily_stint_2/homepage/home.dart';
-import 'package:daily_stint_2/homepage/ownTask/my_Task/details.dart';
-import 'package:daily_stint_2/homepage/ownTask/my_Task/edittask.dart';
+import 'package:daily_stint_2/diary/diary_details.dart';
+import 'package:daily_stint_2/diary/diary_edit.dart';
+import 'package:daily_stint_2/diary/diary_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class DiaryList extends StatefulWidget {
-  const DiaryList({super.key});
+ 
+  const DiaryList({super.key,});
 
   @override
   State<DiaryList> createState() => _DiaryListState();
 }
-TextEditingController _dateController = TextEditingController();
-  TextEditingController _PlanNameController = TextEditingController();
-  TextEditingController _AddedTextFieldController = TextEditingController();
 
 class _DiaryListState extends State<DiaryList> {
+  TextEditingController _DiaryDateController = TextEditingController();
+  TextEditingController _AddDiaryController = TextEditingController();
+  TextEditingController _DiaryNameController= TextEditingController();
   @override 
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor:Color(0xFFE6D7F1),
         appBar: AppBar(
-
           leading: IconButton(onPressed: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MyHome()));
+            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>DiaryInterface()));
           } ,icon: Icon(Icons.arrow_back,
-          color: Color.fromARGB(255, 32, 10, 61),)),
-          title: Padding(
-          padding: const EdgeInsets.only(left:80),
-          child: Text('Saved Diary',
+          color: Colors.white ,)),
+          title: Text('Saved Diary',
           style: TextStyle(fontSize: 25,
           fontWeight: FontWeight.w600, 
-          color:  Color.fromARGB(255, 38, 6, 80),
+          color:  Colors.white,
           ),
                        
-          ),
+          ), 
+          centerTitle: true,
+          backgroundColor: Color(0xFF563267),           
         ),
-          backgroundColor:Color.fromARGB(255, 192, 161, 214),           
-        ),
-        body:ValueListenableBuilder<Box<Model>>(valueListenable: Boxes.getData().listenable(),
-        // valueListenable: Hive.box<Model>('model').listenable(),  
+        body:ValueListenableBuilder<Box<DrModel>>(valueListenable: Boxes1.getData().listenable(), 
         builder: (context, box, _) { 
-          var myData = box.values.toList().cast<Model>();
+          var myData = box.values.toList().cast<DrModel>();
+          if(myData.isEmpty){
+            return
+            Center(
+              child: Text("Ooop's Diary were not added ",
+              style: TextStyle(fontSize: 18,
+              color: Colors.black38,  
+              ), 
+             ), 
+            ); 
+          }
           return ListView.builder(
-            itemCount: box.length,
-            itemBuilder: (context, index) {
+            itemCount: myData.length,
+            itemBuilder: (context, index) {   
               return             
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: GestureDetector(onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MyDetails(name: myData[index%myData.length])));
+                 
+         Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => DiaryDetails(Diary: myData[index%myData.length])
+         ));
+
                 },
                   child: Card(
                     elevation: 30,
@@ -59,12 +69,14 @@ class _DiaryListState extends State<DiaryList> {
                       borderRadius: BorderRadius.circular(20)
                     ),
                     child: Container(
-                      decoration: BoxDecoration(  borderRadius: BorderRadius.circular(15),
-                        image: DecorationImage(image: AssetImage(''), 
+                      decoration: BoxDecoration( borderRadius: BorderRadius.circular(15),
+                        image: DecorationImage(image: AssetImage('asset/Saved Diary 2.jpg'), 
                         fit: BoxFit.cover
+                       
+                        ),
                         
-                        )
                       ),
+                      
                       height: 250,  
                       width: 350,                  
                       child: Column(
@@ -89,35 +101,42 @@ class _DiaryListState extends State<DiaryList> {
                               style: TextStyle(color: Colors.red),))
                               ],));
                               }, icon: Icon(Icons.delete,color: Colors.red,)),
+                              IconButton(onPressed: (){
+                                _editDiary(
+                                  myData[index],
+                                  myData[index].AddDiary.toString(),
+                                  myData[index].DiaryDate.toString(),
+                                  myData[index].DiaryName.toString(),
+
+                                );
+                              }, icon: Icon(Icons.edit))
                             ],
                           ),
                         ),
-                         Column(
+                         Column( 
                            children: [
                              Padding(
                                padding: const EdgeInsets.only(left: 10),
                                child: Text(myData[index].DiaryName.toString(),
-                               style: TextStyle(color: Colors.white,
+                               style: TextStyle(color: Colors.black38, 
                                fontSize: 35,
                                fontWeight: FontWeight.w900,
                                ),
 
+                               ), 
+                             ),
+                             Padding(
+                               padding: const EdgeInsets.only(left: 10), 
+                               child: Text(myData[index].DiaryDate.toString(),
+                               style: TextStyle(
+                                fontSize: 20  
                                ),
+                               ),
+                               
                              ),
                            ],
                          ), 
-                        //  Padding(
-                        //    padding: const EdgeInsets.only(left: 10), 
-                        //    child: Text(myData[index].selectedDate.toString(),
-                        //    style: TextStyle(
-                        //     fontWeight: FontWeight.w800,
-                        //     fontSize: 20,
-                        //     color: Colors.white,
-                            
-                        //    ),),
-                        //  ),
-                         
-                         // Text(myData[index].buildTextField.toString())
+                      
                        ],
                       ),
                     ),
@@ -136,16 +155,11 @@ class _DiaryListState extends State<DiaryList> {
   void delete(Model)async{
     await Model.delete();
   }
-  Future<void>editDay(
-  Model updateModel,
-  String Date,
-  String planName,
-  String addedTextField
-  )async{
-  _dateController.text = Date;
-  _PlanNameController.text = planName;
-  _AddedTextFieldController.text = addedTextField;
-  Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>DayEdit(updateModel: updateModel)));
-  }
-}
+ void _editDiary(DrModel editDiary ,String AddDiary,String DiaryDate,String DiaryName) async{
+  _AddDiaryController.text = AddDiary;
+  _DiaryDateController.text = DiaryDate;
+  _DiaryNameController.text = DiaryName;
+  Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> DiaryEdit(editDiary: editDiary)));
+ }
 
+}

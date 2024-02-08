@@ -1,5 +1,5 @@
 
-import 'package:daily_stint_2/welcomePg/workethics.dart';
+import 'package:daily_stint_2/welcome_screen/workethics.dart';
 import 'package:flutter/material.dart';
 
 class PlaningPage  extends StatelessWidget {

@@ -14,12 +14,8 @@ class AddPlan extends StatefulWidget {
 }
 
 class _CustomState extends State<AddPlan> {
-  TextEditingController _AddDiaryController = TextEditingController();
-   TextEditingController _DiaryNameController= TextEditingController();
   TextEditingController _dateController = TextEditingController();
   TextEditingController _PlanNameController = TextEditingController();
-  TextEditingController _subTaskName = TextEditingController();
-  TextEditingController _addSubTask = TextEditingController();
   TextEditingController _baseAddTask = TextEditingController();
   List<TextEditingController> _addedTextFieldControllers = [];
   TextEditingController _AdmPhoto= TextEditingController();
@@ -48,15 +44,18 @@ class _CustomState extends State<AddPlan> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
+        appBar: AppBar(leading: IconButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MyTask()));
+        }, icon: Icon(Icons.arrow_back,
+        color: Colors.white,)),
           title: Text('Add Plan',
           style: TextStyle(fontSize: 25,
           fontWeight: FontWeight.w600, 
-          color:  Color.fromARGB(255, 38, 6, 80),
-          ),
+          color:  Colors.white
+          ), 
         ),
         centerTitle: true,
-          backgroundColor: Color.fromARGB(255, 192, 161, 214),
+          backgroundColor: Color(0xFF563267),
           ),
         backgroundColor: Color(0xFFE6D7F1),
         body: SingleChildScrollView(
@@ -100,19 +99,22 @@ class _CustomState extends State<AddPlan> {
                         child: Container(
                           height: 100,
                           child: Card(                          
-                            child: TextFormField(
-                              controller: _PlanNameController,
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
-                              validator:(Value){
-                            if(Value == null|| Value.isEmpty){
-                              return "Please Enter Your Plan Name";
-                            }
-                            return null;
-                            },
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                
-                                hintText: " Add Plan Name", 
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0), 
+                              child: TextFormField(
+                                controller: _PlanNameController,
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                validator:(Value){
+                              if(Value == null|| Value.isEmpty){
+                                return "Please Enter Your Plan Name";
+                              }
+                              return null;
+                              },
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  
+                                  hintText: " Add Plan Name", 
+                                ),
                               ),
                             ),
                           ),
@@ -213,13 +215,12 @@ class _CustomState extends State<AddPlan> {
       AdmTitile: _AdmTitle.text.toString(),
       AdmDescrption: _AdmDescription.text.toString(),
       // DiaryDate: _DiaryDateController.text.toString(),
-      AddDiary: _AddDiaryController.text.toString(),
-      DiaryName:_DiaryNameController.text.toString(),
+      // AddDiary: _AddDiaryController.text.toString(),
+      // DiaryName:_DiaryNameController.text.toString(),
       id: UniqueKey().toString(),
       baseAddTask: _baseAddTask.text.toString(),
       selectedDate: _dateController.text.toString(),
-    subTaskName: _subTaskName.text.toString(), 
-    AddSubTask: _addSubTask.text.toString(),  
+   
      planName: _PlanNameController.text.toString(),
       buildTextField: _addedTextFieldControllers.map((controller) => controller.text).toList());
     var box = await Hive.openBox<Model>('model');
