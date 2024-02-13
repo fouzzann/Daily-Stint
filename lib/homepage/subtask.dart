@@ -23,7 +23,7 @@ class _SubTaskState extends State<SubTask> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: Scaffold(backgroundColor: Color(0xFFE6D7F1),
         appBar: AppBar(leading: IconButton(onPressed: (){
           Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MyHome()));
         }, icon: Icon(Icons.arrow_back,color: Colors.white,)),
@@ -49,42 +49,55 @@ class _SubTaskState extends State<SubTask> {
                       color: Colors.black38,  ),  
                ), 
               ); 
+              
             }
+           
             return ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
-                return Container(
-                  height: 100,
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            data[index].subTaskName.toString(),
-                            style: TextStyle(fontWeight: FontWeight.w600),
-                          ),
-                          Spacer(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+               
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: 25 ,
+                    ),
+                    Container(
+                      
+                      
+                      height: 100,
+                      child: Card(color: Color.fromARGB(255, 238, 211, 243),
+                        elevation: 5,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              InkWell(
-                                onTap: () {
-                                  delete(data[index]);
-                                },
-                                child: Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
-                                ),
+                              Text(
+                                data[index].subTaskName.toString(),
+                                style: TextStyle(fontWeight: FontWeight.w600),
                               ),
+                              Spacer(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      delete(data[index]);
+                                    },
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(data[index].AddSubTask.toString()),
                             ],
                           ),
-                          Text(data[index].AddSubTask.toString()),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 );
               },
             );

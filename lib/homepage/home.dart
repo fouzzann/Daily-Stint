@@ -1,10 +1,10 @@
 
 import 'package:daily_stint_2/admin/categories.dart';
-import 'package:daily_stint_2/diary/add_diary.dart';
-import 'package:daily_stint_2/homepage/ownTask/my_Task/search.dart';
+import 'package:daily_stint_2/diary/diary_interface.dart';
+import 'package:daily_stint_2/homepage/ownTask/my_Task/addplan.dart';
+import 'package:daily_stint_2/money_track/mt_home.dart';
 import 'package:daily_stint_2/settings.dart/profile.dart';
 import 'package:daily_stint_2/homepage/subtask.dart';
-
 import 'package:daily_stint_2/homepage/ownTask/my_Task/mytask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,19 +15,33 @@ class MyHome extends StatefulWidget {
 
   @override
   State<MyHome> createState() => _MyHomeState();
+  
+  
 }
 
 class _MyHomeState extends State<MyHome> {
+
+  
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xFFE6D7F1),
-        appBar: AppBar(
-          backgroundColor: Color(0xFFE6D7F1),
-        ),
-        
+        backgroundColor: Color(0xFFE6D7F1), 
+        appBar: AppBar(title: Text('Home',
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w500
+        ),),
+        centerTitle: true,
+          leading: IconButton(onPressed: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>Profile()));
+          }, icon: Icon(Icons.menu, 
+          color:  Colors.white)),
+          
+          backgroundColor:  Color(0xFF563267),
+        ),  
+          
         body: SingleChildScrollView(
           child: Center(
             child: Column( 
@@ -160,22 +174,72 @@ class _MyHomeState extends State<MyHome> {
                     height: 90,
                     width: 290,
                     decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: Color.fromARGB(255, 98, 161, 212),
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
                 ),
-
-                ////////////////////////////// my diary////////////////////////////
+        
+                ////////////////////////////// MoneyManage////////////////////////////
                 SizedBox(height: 30),
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (ctx) => Diary(),
+                        builder: (ctx) => MtHomeScreen(),
                       ),
                     );
-                  },
+                  },    
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 47, top: 30),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(bottom: 30, left: 50),
+                            child: Center(
+                              child: Icon(
+                                Icons.monetization_on_sharp,
+                                size: 34,
+                                color: Colors.white,
+                              ),
+                            ), 
+                          ), 
+                          
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 25),
+                            child: Text(
+                              ' Money Track',
+                              style: TextStyle(
+                                fontSize: 23,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    height: 90,
+                    width: 290,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 113, 185, 116),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  
+                ), 
+                SizedBox(height: 30,),
+                  GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (ctx) => DiaryInterface(),
+                      ),
+                    );
+                  },   
+                  ////////////////////////////// My Diary ////////////////////////////
                   child: Container(
                     child: Padding(
                       padding: const EdgeInsets.only(right: 47, top: 30),
@@ -213,13 +277,14 @@ class _MyHomeState extends State<MyHome> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
+                  
                 ),
-                
+                SizedBox(height: 30,)
               ]
             )
           ),
         ),
-        bottomNavigationBar: Padding(
+      bottomNavigationBar: Padding(
           padding: const EdgeInsets.only(bottom:13 ),
           child: ClipRRect(borderRadius: BorderRadius.circular(30),
             child: BottomNavigationBar( 
@@ -236,7 +301,7 @@ class _MyHomeState extends State<MyHome> {
              
                     break;
                   case 1:
-                     Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>Search()));
+                     Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>AddPlan()));
                     break;
                   case 2:
                    Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>Profile()));
@@ -249,9 +314,9 @@ class _MyHomeState extends State<MyHome> {
                   label: 'Home',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.search), 
-                  label: 'Search',
-                ),
+                  icon: Icon(Icons.add_box_outlined), 
+                  label: 'Add Plan',
+                ), 
                 BottomNavigationBarItem(
                   icon: Icon(Icons.settings),
                   label: 'Settings',  
@@ -260,6 +325,7 @@ class _MyHomeState extends State<MyHome> {
             ),
           ),
         ),
+      
       ),
     );
   }

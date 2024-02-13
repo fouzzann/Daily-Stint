@@ -22,24 +22,22 @@ class _CategoriesState extends State<Categories> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xFFE6D7F1),
+        backgroundColor:  Color(0xFFE6D7F1),
         appBar: AppBar(backgroundColor:  Color(0xFF563267),
           leading: IconButton(onPressed: (){
             Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MyHome()));
           } ,icon: Icon(Icons.arrow_back,
           color: Colors.white,
        )), 
-          title: Padding(
-          padding: const EdgeInsets.only(left:80), 
-          child: Text('Categories',
+          title: Text('Categories',
           style: TextStyle(fontSize: 25,
           fontWeight: FontWeight.w600,  
           color: Colors.white
           ),
+          
                        
           ),
-        ),
-          
+          centerTitle: true,
         ),
         body:ValueListenableBuilder<Box<Model>>(valueListenable: Boxes.getData().listenable(), 
         builder: (context, box, _) { 

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:daily_stint_2/homepage/home.dart';
-import 'package:daily_stint_2/main.dart';
 import 'package:daily_stint_2/welcome_screen/welcomscrn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';

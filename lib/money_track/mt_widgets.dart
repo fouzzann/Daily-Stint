@@ -1,4 +1,4 @@
-import 'dart:ffi';
+
 
 import 'package:daily_stint_2/money_track/mt_home.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,9 @@ class MtBottomNavigationBar extends StatelessWidget {
       valueListenable:MtHomeScreen.selectedIndexNotifer,
     builder: (BuildContext ctx, int updatedIndex, Widget?_){
       return  BottomNavigationBar(
-        selectedItemColor: Color(0xFF563267),
+        backgroundColor: Color.fromARGB(255, 170, 151, 184),
+        selectedItemColor: Color.fromARGB(255, 109, 72, 126),
+         
         currentIndex:updatedIndex,
         onTap:(newIndex) {
         MtHomeScreen.selectedIndexNotifer.value = newIndex;

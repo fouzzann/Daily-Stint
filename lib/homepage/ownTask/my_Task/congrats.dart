@@ -32,7 +32,7 @@ class CongratsScreen extends StatelessWidget {
               style: TextStyle(color: Colors.white),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 250),  
+                padding: const EdgeInsets.only(top: 210),  
                 child: ElevatedButton(onPressed: (){
                   Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MyTask()));
                 }, child: Text('DONE',style: TextStyle(

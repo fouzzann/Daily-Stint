@@ -83,35 +83,32 @@ class _DiaryListState extends State<DiaryList> {
                        crossAxisAlignment: CrossAxisAlignment.start,
                        mainAxisAlignment: MainAxisAlignment.start,
                        children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 275),
-                          child: Row(
-                            children: [
-                              IconButton(onPressed: (){
-                            showDialog(context: context, builder: (context)=>AlertDialog(title: Text('Delete?'),
-                            actions: [
-                              TextButton(onPressed: (){
-                                Navigator.of(context).pop(false);
-                              }, child: Text('Cancel')),
-                              TextButton(onPressed: (){
-                                 delete(myData[index]);
-                                Navigator.pop(context);
-                              }
-                              , child: Text('Delete',
-                              style: TextStyle(color: Colors.red),))
-                              ],));
-                              }, icon: Icon(Icons.delete,color: Colors.red,)),
-                              IconButton(onPressed: (){
-                                _editDiary(
-                                  myData[index],
-                                  myData[index].AddDiary.toString(),
-                                  myData[index].DiaryDate.toString(),
-                                  myData[index].DiaryName.toString(),
-
-                                );
-                              }, icon: Icon(Icons.edit))
-                            ],
-                          ),
+                        Row(mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            IconButton(onPressed: (){
+                          showDialog(context: context, builder: (context)=>AlertDialog(title: Text('Delete?'),
+                          actions: [
+                            TextButton(onPressed: (){
+                              Navigator.of(context).pop(false);
+                            }, child: Text('Cancel')),
+                            TextButton(onPressed: (){
+                               delete(myData[index]);
+                              Navigator.pop(context);
+                            }
+                            , child: Text('Delete',
+                            style: TextStyle(color: Colors.red),))
+                            ],));
+                            }, icon: Icon(Icons.delete,color: Colors.red,)),
+                            IconButton(onPressed: (){
+                              _editDiary(
+                                myData[index],
+                                myData[index].AddDiary.toString(),
+                                myData[index].DiaryDate.toString(),
+                                myData[index].DiaryName.toString(),
+                        
+                              );
+                            }, icon: Icon(Icons.edit))
+                          ],
                         ),
                          Column( 
                            children: [

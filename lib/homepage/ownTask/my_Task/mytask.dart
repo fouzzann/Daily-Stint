@@ -198,6 +198,6 @@ class _MyTaskState extends State<MyTask> {
     _dateController.text = date;
     _planNameController.text = planName;
     _addedTextFieldController.text = addedTextField;
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => DayEdit(updateModel: updateModel)));
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => EditTask(updateModel: updateModel)));
   }
 }

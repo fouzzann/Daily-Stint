@@ -61,15 +61,15 @@ class _CustomState extends State<AddPlan> {
         body: SingleChildScrollView(
           child: Column(
             children: [ 
-              Padding(
-                padding: const EdgeInsets.only(left: 155),   
-                child: TextFormField(
-                  decoration: InputDecoration( 
-                  border: InputBorder.none
-                  ),
-                  controller: _dateController,
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 155),   
+              //   child: TextFormField(
+              //     decoration: InputDecoration( 
+              //     border: InputBorder.none
+              //     ),
+              //     controller: _dateController,
+              //   ),
+              // ),
               
               SizedBox(
                 height: 20,

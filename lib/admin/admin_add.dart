@@ -15,8 +15,6 @@ class _AdminState extends State<Admin> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _dateController = TextEditingController();
   TextEditingController _PlanNameController = TextEditingController();
-  TextEditingController _subTaskName = TextEditingController();
-  TextEditingController _addSubTask = TextEditingController();
   TextEditingController _baseAddTask = TextEditingController();
   List<TextEditingController> _addedTextFieldControllers = [];
   TextEditingController _AdmPhoto= TextEditingController();

@@ -3,16 +3,16 @@ import 'package:daily_stint_2/Hive/model.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class DayEdit extends StatefulWidget {
+class EditTask extends StatefulWidget {
 final Model updateModel;
 
-  const DayEdit({super.key, required this.updateModel});
+  const EditTask({super.key, required this.updateModel});
 
   @override
-  State<DayEdit> createState() => _CustomState();
+  State<EditTask> createState() => _EditTaskState();
 }
 
-class _CustomState extends State<DayEdit> {
+class _EditTaskState extends State<EditTask> {
 
   TextEditingController _dateController = TextEditingController();
   TextEditingController _PlanNameController = TextEditingController();
@@ -54,15 +54,15 @@ class _CustomState extends State<DayEdit> {
                 height: 35,
               ),
              
-              Padding(
-                padding: const EdgeInsets.only(left: 155),   
-                child: TextFormField(
-                  decoration: InputDecoration( 
-                  border: InputBorder.none
-                  ),
-                  controller: _dateController,
-                ),
-              ),             
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 155),   
+              //   child: TextFormField(
+              //     decoration: InputDecoration( 
+              //     border: InputBorder.none
+              //     ),
+              //     controller: _dateController,
+              //   ),
+              // ),             
               SizedBox(
                 height: 20,
               ),

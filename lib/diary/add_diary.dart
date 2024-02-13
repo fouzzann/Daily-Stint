@@ -127,14 +127,11 @@ class _DiaryState extends State<Diary> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 155),
-                      child: TextFormField(
-                        decoration: InputDecoration(border: InputBorder.none),
-                        controller: _DiaryDateController,
-                        enabled: false,
-                      ),
-                    ),
+                    // TextFormField(
+                    //   decoration: InputDecoration(border: InputBorder.none),
+                    //   controller: _DiaryDateController,
+                    //   enabled: false,
+                    // ),
                     SizedBox(),
                     Padding(
                       padding: const EdgeInsets.all(9.0),

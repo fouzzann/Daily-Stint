@@ -21,27 +21,38 @@ class _AdmCategoriesState extends State<AdmCategories> {
   @override 
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
+      child: Scaffold(backgroundColor:  Color(0xFFE6D7F1),
+        appBar: AppBar(backgroundColor:   Color(0xFF563267),
           leading: IconButton(onPressed: (){
             Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>MyHome()));
           } ,icon: Icon(Icons.arrow_back,
+          color: Colors.white,
        )), 
-          title: Padding(
-          padding: const EdgeInsets.only(left:80),
-          child: Text('Categories',
+          title: Text('Categories',
           style: TextStyle(fontSize: 25,
           fontWeight: FontWeight.w600, 
+          color: Colors.white
+          ), 
           ),
-                       
-          ),
-        ),
+          centerTitle:true
           
         ),
         body:ValueListenableBuilder<Box<Model>>(valueListenable: Boxes.getData().listenable(), 
         builder: (context, box, _) { 
           var myData = box.values.toList().cast<Model>();
-          return   Padding(
+          if (myData.isEmpty) {
+            return Center(
+              child: Text(
+                'No categories were not added .',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+            );
+          }
+          return Padding(
             padding: const EdgeInsets.all(8.0),
             child: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -80,7 +91,7 @@ class _AdmCategoriesState extends State<AdmCategories> {
                                   )
                                 ]
                               ),
-                                child: Text(myData[index].AdmTitile,
+                                child: Text(myData[index].AdmTitile, 
                                 style: TextStyle(fontSize: 15,
                                 fontWeight: FontWeight.w800,
                                 color: Colors.black38
@@ -100,9 +111,11 @@ class _AdmCategoriesState extends State<AdmCategories> {
           );  
         },
               ),
-              floatingActionButton: FloatingActionButton(onPressed: (){
+              floatingActionButton: FloatingActionButton(backgroundColor:  Color(0xFF563267),
+                onPressed: (){
                 Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>Admin()));
-              },child: Icon(Icons.add),),
+              },child: Icon(Icons.add,
+              color: Colors.white,),),
         
       ),
     );
@@ -123,4 +136,3 @@ class _AdmCategoriesState extends State<AdmCategories> {
   Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>AdmEdit(updateModel2: updateModel2)));
   } 
 }
-

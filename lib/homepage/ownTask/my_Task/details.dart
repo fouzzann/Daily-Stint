@@ -8,17 +8,17 @@ class MyDetails extends StatefulWidget {
   final Model name;
   final void Function(Model) deleteTaskCallback;
 
-  const MyDetails({Key? key, required this.name,required this.deleteTaskCallback}): super(key: key);
-
+  const MyDetails({Key? key, required this.name, required this.deleteTaskCallback})
+      : super(key: key);
 
   @override
   State<MyDetails> createState() => _MyDetailsState();
 }
 
 class _MyDetailsState extends State<MyDetails> {
-  
   List<bool?> isCompleted = [];
-   bool isCompletePressed = false;
+  bool isCompletePressed = false;
+
   @override
   void initState() {
     loadRadioState();
@@ -42,122 +42,138 @@ class _MyDetailsState extends State<MyDetails> {
 
   void saveRadioState(int index, bool? value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('${widget.name.id}_radioState_$index', value?? false);
+    prefs.setBool('${widget.name.id}_radioState_$index', value ?? false);
   }
-
-
 
   @override
   Widget build(BuildContext context) {
-    List<String> filteredBuildTextField =
-        widget.name.buildTextField.where((value) => value.isNotEmpty).toList();
+    List<String> filteredBuildTextField = widget.name.buildTextField
+        .where((value) => value.isNotEmpty)
+        .toList();
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Color(0xFFE6D7F1),
         appBar: AppBar(
+          backgroundColor: Color(0xFF563267),
           leading: IconButton(
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (ctx) => MyTask(),
-              ));
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => MyTask(),
+                ),
+              );
             },
-            icon: Icon(Icons.arrow_back),
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
           ),
           title: Text(
             'Details',
             style: TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF563267),
+              color: Colors.white,
             ),
-            
           ),
           centerTitle: true,
-         
         ),
-        body: Column(
-          children: [SizedBox(
-            height: 30,
-          ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: filteredBuildTextField.length,
-                itemBuilder: (context, index) { 
-                  return Card(color: Color.fromARGB(255, 222, 208, 224),
-                    elevation: 10,
-                    // color: Colors.white,
-                    child: Column(
-                      children: [
-                        Text( 
-                          filteredBuildTextField[index],
-                          style: TextStyle(
-                            fontSize: 19,
-                            color: Colors.black38,  
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Radio(
-                              value: true,  
-                              groupValue: isCompleted[index] ?? false,
-                              onChanged: (value) {
-                                setState(() {
-                                  isCompleted[index] = value!;
-                                  saveRadioState(index, value);
-                                });
-                              },
-                              activeColor: Colors.green,
-                            ),
-                            Text(
-                              'Completed',
-                              style: TextStyle(color: Colors.green),
-                            ),
-                            Radio(
-                              value: false,
-                              groupValue: isCompleted[index] ?? false,
-                              onChanged: (value) {
-                                setState(() {
-                                  isCompleted[index] = value!;
-                                  saveRadioState(index, value);
-                                });
-                              },
-                              activeColor: Colors.red,
-                            ),
-                            Text(
-                              'Not Completed',
-                              style: TextStyle(color: Colors.red),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  );
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    isCompletePressed = true;
-                    for (int i = 0; i < isCompleted.length; i++) {
-                      isCompleted[i] = false;
-                    }
-                  });
-                  widget.deleteTaskCallback(widget.name);
-                 Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>CongratsScreen()));
-                },
+        body: filteredBuildTextField.isEmpty
+            ? Center(
                 child: Text(
-                  'Complete',
-                  style: TextStyle(color: Colors.green),
+                  'oops! you were not added the task\n   if you want to add please click \n      the edit button to add task',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black38),
                 ),
+              )
+            : Column(
+                children: [
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: filteredBuildTextField.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          color: Color.fromARGB(255, 222, 208, 224),
+                          elevation: 10,
+                          child: Column(
+                            children: [
+                              Text(
+                                filteredBuildTextField[index],
+                                style: TextStyle(
+                                  fontSize: 19,
+                                  color: Colors.black38,
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Radio(
+                                    value: true,
+                                    groupValue: isCompleted[index] ?? false,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        isCompleted[index] = value!;
+                                        saveRadioState(index, value);
+                                      });
+                                    },
+                                    activeColor: Colors.green,
+                                  ),
+                                  Text(
+                                    'Completed',
+                                    style: TextStyle(color: Colors.green),
+                                  ),
+                                  Radio(
+                                    value: false,
+                                    groupValue: isCompleted[index] ?? false,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        isCompleted[index] = value!;
+                                        saveRadioState(index, value);
+                                      });
+                                    },
+                                    activeColor: Colors.red,
+                                  ),
+                                  Text(
+                                    'Not Completed',
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: ElevatedButton(style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF563267)),
+                    ),
+                      onPressed: () {
+                        setState(() {
+                          isCompletePressed = true;
+                          for (int i = 0; i < isCompleted.length; i++) {
+                            isCompleted[i] = false;
+                          }
+                        });
+                        widget.deleteTaskCallback(widget.name);
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (ctx) => CongratsScreen()));
+                      },
+                      child: Text(
+                        'Completed',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),  
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

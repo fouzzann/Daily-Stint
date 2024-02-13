@@ -104,30 +104,33 @@ class LetsGoPage  extends StatelessWidget {
                  ),
                ),
              ),
-             Padding(
-               padding: const EdgeInsets.only(left:280,top: 130),
-               child: ElevatedButton(onPressed: (){
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx){
-                  return LoginPage();
-                })); 
-               }, style: ButtonStyle(
-                backgroundColor: 
-                MaterialStateProperty.all<Color>(Color(0xFF563267))
-                ),child: Text("Login",
-                style: TextStyle(
-                  color: Colors.white
-                ),
-                )),
-             )
+            
            ],
          ),
          
           ],
          ),
        ),
+        floatingActionButton: Container(
+          height: 35,
+          width: 80,
+           child: FloatingActionButton(
+            onPressed: () {
+               
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),  
+              );
+            },
+            child: Text('Login >',  
+            style: TextStyle(
+              color: Colors.white
+            ),),
+            backgroundColor:Color(0xFF563267)
+                   ),
        
       
       ),
-    );
+    ));
   }
 }
