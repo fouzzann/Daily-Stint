@@ -18,9 +18,7 @@ class _CustomState extends State<AddPlan> {
   TextEditingController _PlanNameController = TextEditingController();
   TextEditingController _baseAddTask = TextEditingController();
   List<TextEditingController> _addedTextFieldControllers = [];
-  TextEditingController _AdmPhoto= TextEditingController();
-  TextEditingController _AdmTitle = TextEditingController();
-  TextEditingController _AdmDescription = TextEditingController();
+ 
  
   final _formKey = GlobalKey<FormState>();
   DateTime today = DateTime.now();
@@ -61,16 +59,7 @@ class _CustomState extends State<AddPlan> {
         body: SingleChildScrollView(
           child: Column(
             children: [ 
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 155),   
-              //   child: TextFormField(
-              //     decoration: InputDecoration( 
-              //     border: InputBorder.none
-              //     ),
-              //     controller: _dateController,
-              //   ),
-              // ),
-              
+       
               SizedBox(
                 height: 20,
               ),
@@ -211,12 +200,6 @@ class _CustomState extends State<AddPlan> {
   }
   void saveToDataBase()async{
     final myData = Model(
-       AdmPhoto: _AdmPhoto.text.toString(),
-      AdmTitile: _AdmTitle.text.toString(),
-      AdmDescrption: _AdmDescription.text.toString(),
-      // DiaryDate: _DiaryDateController.text.toString(),
-      // AddDiary: _AddDiaryController.text.toString(),
-      // DiaryName:_DiaryNameController.text.toString(),
       id: UniqueKey().toString(),
       baseAddTask: _baseAddTask.text.toString(),
       selectedDate: _dateController.text.toString(),

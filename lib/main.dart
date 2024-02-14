@@ -33,6 +33,9 @@ import 'package:path_provider/path_provider.dart';
   if(!Hive.isAdapterRegistered(TransactionsModelAdapter().typeId)){
     Hive.registerAdapter(TransactionsModelAdapter());
   }
+  // Adm
+   Hive.registerAdapter(AdmAdapter());
+   await Hive.openBox<Adm>('adm');
   
   runApp(const DailyStint());
 }

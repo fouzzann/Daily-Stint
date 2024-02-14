@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AdmEdit extends StatefulWidget {
-  final Model updateModel2;
+  final Adm updateModel2;
 const AdmEdit({super.key, required this.updateModel2});
   @override
   

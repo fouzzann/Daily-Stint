@@ -22,7 +22,7 @@ class _AppInfoState extends State<AppInfo> {
           
               child: Center(
                 child: Container(
-                  width: 340,
+                  width: 405,
                   child: Card( 
                     child: Text('''
                   

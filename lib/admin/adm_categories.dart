@@ -37,9 +37,9 @@ class _AdmCategoriesState extends State<AdmCategories> {
           centerTitle:true
           
         ),
-        body:ValueListenableBuilder<Box<Model>>(valueListenable: Boxes.getData().listenable(), 
+        body:ValueListenableBuilder<Box<Adm>>(valueListenable: Boxes3.getData().listenable(), 
         builder: (context, box, _) { 
-          var myData = box.values.toList().cast<Model>();
+          var myData = box.values.toList().cast<Adm>();
           if (myData.isEmpty) {
             return Center(
               child: Text(
@@ -47,7 +47,7 @@ class _AdmCategoriesState extends State<AdmCategories> {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: Colors.black38,
                 ),
               ),
             );
@@ -94,7 +94,7 @@ class _AdmCategoriesState extends State<AdmCategories> {
                                 child: Text(myData[index].AdmTitile, 
                                 style: TextStyle(fontSize: 15,
                                 fontWeight: FontWeight.w800,
-                                color: Colors.black38
+                                color: Colors.black87
                                 ),
                                 
                                 ),
@@ -124,7 +124,7 @@ class _AdmCategoriesState extends State<AdmCategories> {
     await Model.delete();
   }
   Future<void>AdminEdit(
-  Model updateModel2,
+  Adm updateModel2,
   String Photo,
   String Title,
   String Description

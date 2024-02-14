@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:daily_stint_2/admin/auth_admin.dart';
 import 'package:daily_stint_2/authentication/login.dart';
 import 'package:daily_stint_2/homepage/home.dart';
@@ -61,12 +60,16 @@ class _ProfileState extends State<Profile> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xFFE6D7F1),
-        appBar: AppBar(
-          backgroundColor: Color(0xFFE6D7F1),
-          title: Text(''),
+        appBar: AppBar(leading: Icon(Icons.abc,
+        color: Color(0xFF563267)), 
+          backgroundColor:  Color(0xFF563267),
+          title: Text('Settings',
+          style: TextStyle(
+            color: Colors.white
+          ),),
           centerTitle: true,
         ),
-        body: Center(
+        body: Center( 
           child: Column(
             children: [
               SizedBox(height: 20),
@@ -96,14 +99,15 @@ class _ProfileState extends State<Profile> {
                               
                               ),
                             child: Image.asset(
-                              'asset/icon.png',
+                              'asset/settings icon 3 (2).png',
                               fit: BoxFit.cover,
                             ), 
                           ),
-                        ),
+                        ), 
                 ),
               ),
-              IconButton(onPressed: _pickImage, icon: Icon(Icons.add_a_photo, size: 30)),
+              IconButton(onPressed: _pickImage, icon: Icon(Icons.add_a_photo, size: 30,
+              color: Color(0xFF563267))),
               Container(
                 child: Column(),
               ),
@@ -111,7 +115,7 @@ class _ProfileState extends State<Profile> {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => AppInfo()));
-                },
+                }, 
                 child: Container(
                   child: Center(
                     child: Row(
@@ -119,11 +123,13 @@ class _ProfileState extends State<Profile> {
                         SizedBox(width: 10),
                         IconButton(onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => AppInfo()));
-                        }, icon: Icon(Icons.info)),
+                        }, icon: Icon(Icons.info,
+                        color:Color(0xFF563267) ,)),
                         SizedBox(width: 10),
                         Text(
                           'App Info',
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 16,
+                          color: Color(0xFF563267)),
                         ),
                       ],
                     ),
@@ -140,11 +146,13 @@ class _ProfileState extends State<Profile> {
                     child: Row(
                       children: [
                         SizedBox(width: 10),
-                        IconButton(onPressed: () {}, icon: Icon(Icons.person_pin)),
+                        IconButton(onPressed: () {}, icon: Icon(Icons.person_pin,
+                        color: Color(0xFF563267),)),
                         SizedBox(width: 10),
                         Text(
                           'Admin',
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 16,
+                          color: Color(0xFF563267) ),
                         ),
                       ],
                     ),
@@ -163,11 +171,13 @@ class _ProfileState extends State<Profile> {
                         SizedBox(width: 10),
                         IconButton(onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => PrivacyAndPolicy()));
-                        }, icon: Icon(Icons.lock_open_rounded)),
+                        }, icon: Icon(Icons.lock_open_rounded,
+                        color: Color(0xFF563267))),
                         SizedBox(width: 10),
                         Text(
                           'Privacy & Policy',
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 16,
+                          color: Color(0xFF563267)),
                         ),
                       ],
                     ),
@@ -186,11 +196,13 @@ class _ProfileState extends State<Profile> {
                         SizedBox(width: 10),
                         IconButton(onPressed: () {
                           _logout(context);
-                        }, icon: Icon(Icons.exit_to_app)),
+                        }, icon: Icon(Icons.exit_to_app,
+                        color: Color(0xFF563267))),
                         SizedBox(width: 10),
                         Text(
                           'Log Out',
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 16,
+                          color: Color(0xFF563267)),
                         ),
                       ],
                     ),

@@ -39,9 +39,9 @@ class _CategoriesState extends State<Categories> {
           ),
           centerTitle: true,
         ),
-        body:ValueListenableBuilder<Box<Model>>(valueListenable: Boxes.getData().listenable(), 
+        body:ValueListenableBuilder<Box<Adm>>(valueListenable: Boxes3.getData().listenable(), 
         builder: (context, box, _) { 
-          var myData = box.values.toList().cast<Model>();
+          var myData = box.values.toList().cast<Adm>();
           if(myData.isEmpty){
             return Center(
               child: Text("Oopp's..The data were not added by the admin ",
@@ -98,7 +98,7 @@ class _CategoriesState extends State<Categories> {
                                     child: Text(myData[index].AdmTitile,
                                     style: TextStyle(fontSize: 35,
                                     fontWeight: FontWeight.w800,
-                                    color: Colors.black38),
+                                    color: Colors.black87),
                                     ),
                                   ),
                                 ),
@@ -120,12 +120,12 @@ class _CategoriesState extends State<Categories> {
   }
   
   Future<void>AdminEdit(
-  Model updateModel2,
+  Adm updateModel2,
   String Photo,
   String Title,
   String Description
   )async{
-    _AdmPhoto.text = Photo;
+  _AdmPhoto.text = Photo;
   _AdmTitle.text = Title;
   _AdmDescription.text = Description;
   

@@ -148,7 +148,7 @@ class _MyHomeState extends State<MyHome> {
                         children: [
                           Padding(
                             padding:
-                                const EdgeInsets.only(bottom: 30, left: 70),
+                                const EdgeInsets.only(bottom: 30, left: 50),
                             child: Center(
                               child: Icon(
                                 Icons.add,
@@ -158,11 +158,11 @@ class _MyHomeState extends State<MyHome> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 25),
+                            padding: const EdgeInsets.only(bottom: 25,left: 20),
                             child: Text(
                               ' Subtask',
                               style: TextStyle(
-                                fontSize: 23,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white,
                               ),
@@ -174,7 +174,7 @@ class _MyHomeState extends State<MyHome> {
                     height: 90,
                     width: 290,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 98, 161, 212),
+                      color: Color(0xFF563267), 
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -212,7 +212,7 @@ class _MyHomeState extends State<MyHome> {
                             child: Text(
                               ' Money Track',
                               style: TextStyle(
-                                fontSize: 23,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white,
                               ),
@@ -224,7 +224,7 @@ class _MyHomeState extends State<MyHome> {
                     height: 90,
                     width: 290,
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 113, 185, 116),
+                      color: Color(0xFF563267),
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
@@ -247,9 +247,9 @@ class _MyHomeState extends State<MyHome> {
                         children: [
                           Padding(
                             padding:
-                                const EdgeInsets.only(bottom: 30, left: 70),
+                                const EdgeInsets.only(bottom: 30, left: 50),
                             child: Center(
-                              child: Icon(
+                              child: Icon( 
                                 Icons.menu_book_outlined,
                                 size: 34,
                                 color: Colors.white,
@@ -257,11 +257,11 @@ class _MyHomeState extends State<MyHome> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 25),
+                            padding: const EdgeInsets.only(bottom: 25,left: 17),
                             child: Text(
                               ' My Diary',
                               style: TextStyle(
-                                fontSize: 23,
+                                fontSize: 20,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white,
                               ),
@@ -273,10 +273,10 @@ class _MyHomeState extends State<MyHome> {
                     height: 90,
                     width: 290,
                     decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color:Color(0xFF563267),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                  ),
+                  ), 
                   
                 ),
                 SizedBox(height: 30,)

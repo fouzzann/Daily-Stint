@@ -58,11 +58,15 @@ class _DiaryDetailsState extends State<DiaryDetails> {
                   height: 40,
                 ),
             Card(elevation: 10,
-              child: Text(widget.Diary.AddDiary, 
-                                style: TextStyle(
-                                  fontSize: 20
-                                ),
+              child: Padding(
+                
+                padding: const EdgeInsets.all(8.0),
+                child: Text(widget.Diary.AddDiary, 
+                                  style: TextStyle(
+                                    fontSize: 20
                                   ),
+                                    ),
+              ),
             ),
                     
               ],

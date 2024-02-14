@@ -12,3 +12,6 @@ class Boxes1{
 class Boxes2{
   static Box<SubModel> getData()=>Hive.box<SubModel>('Submodel');
 }
+class Boxes3{
+  static Box<Adm> getData()=>Hive.box<Adm>('adm');
+}

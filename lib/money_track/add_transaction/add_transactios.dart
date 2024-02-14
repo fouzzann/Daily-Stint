@@ -76,7 +76,7 @@ class _AddTransactionsState extends State<AddTransactions> {
               ),
            
               
-              Text(_selectedDate.toString()),
+             
                // category
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -140,11 +140,16 @@ class _AddTransactionsState extends State<AddTransactions> {
                   });
                  }
                  ),
-                 ElevatedButton(
+                 ElevatedButton(style: ButtonStyle(
+                   backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF563267)),
+                 ),
                   onPressed: (){
                     addTransaction();
                   },
-                   child: Text('Submit')
+                   child: Text('Submit',
+                   style: TextStyle(
+                    color: Colors.white
+                   ),)
                    )
           ],
         ), 

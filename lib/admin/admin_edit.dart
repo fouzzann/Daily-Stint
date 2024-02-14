@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AdmEdit extends StatefulWidget {
-  final Model updateModel2;
+  final Adm updateModel2;
 const AdmEdit({super.key, required this.updateModel2});
   @override
   
@@ -122,6 +122,7 @@ class _AdmEditState extends State<AdmEdit> {
                 Column(
                   children: [
                     ElevatedButton(onPressed: ()async{
+                      Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>AdmCategories()));
                    widget.updateModel2.AdmPhoto = _AdmPhoto.text.toString();
                    widget.updateModel2.AdmTitile = _AdmTitle.text.toString();
                    widget.updateModel2.AdmDescrption = _AdmDescription.text.toString();

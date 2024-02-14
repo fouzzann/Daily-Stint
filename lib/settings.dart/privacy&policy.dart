@@ -11,12 +11,12 @@ class PrivacyAndPolicy extends StatelessWidget {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child: Center(
-          child: Container(width: 340,
-            child: Card(
-              child: Text(''' 
+        child: Center(  
+          child: Container(width:405, 
+            child: Card(  
+              child: Text('''  
               Privacy Policy
-
+ 
               Last updated: February 12, 2024
               
               This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.

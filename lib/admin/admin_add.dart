@@ -143,20 +143,14 @@ class _AdminState extends State<Admin> {
     );
   }
   void AdminDatabase()async{
-    final myData = Model(
-      // DiaryDate: _DiaryDateController.text.toString(),
+    final myData = Adm(
+    
        AdmPhoto: _AdmPhoto.text.toString(),
       AdmTitile: _AdmTitle.text.toString(),
-      AdmDescrption: _AdmDescription.text.toString(),
-      // AddDiary: _AddDiaryController.text.toString(),
-      // DiaryName:_DiaryNameController.text.toString(),
-      id: UniqueKey().toString(),
-      baseAddTask: _baseAddTask.text.toString(),
-      selectedDate: _dateController.text.toString(),
-   
-     planName: _PlanNameController.text.toString(),
-      buildTextField: _addedTextFieldControllers.map((controller) => controller.text).toList());
-    var box = await Hive.openBox<Model>('model');
+      AdmDescrption: _AdmDescription.text.toString());
+
+     
+    var box = await Hive.openBox<Adm>('Adm');
     await box.add(myData);
     Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>AdmCategories()));
    print(box);

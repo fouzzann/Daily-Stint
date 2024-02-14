@@ -1,5 +1,4 @@
 
-
 import 'package:daily_stint_2/Hive/box.dart';
 import 'package:daily_stint_2/Hive/model.dart';
 import 'package:daily_stint_2/homepage/home.dart';

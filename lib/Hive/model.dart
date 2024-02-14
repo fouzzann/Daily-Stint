@@ -11,18 +11,11 @@ class Model extends HiveObject{
   String planName;
   @HiveField(2)
   List<String> buildTextField;
-  
-   @HiveField(5)
+   @HiveField(3)
   String baseAddTask;
-   @HiveField(6)
+   @HiveField(4)
   String id;
-  @HiveField(7)
-  String AdmPhoto;
-  @HiveField(8)
-  String AdmTitile;
-  @HiveField(9)
-  String AdmDescrption;
-  
+ 
 
 
 
@@ -33,9 +26,7 @@ class Model extends HiveObject{
     
     required this.baseAddTask,
     required this.id,
-    required this.AdmPhoto,
-    required this.AdmTitile,
-    required this.AdmDescrption,
+  
     });
    
 
@@ -52,18 +43,31 @@ class DrModel extends HiveObject{
   String AddDiary;
   @HiveField(2)
   String DiaryDate;
-
-
   DrModel({
     required this.DiaryName,
     required this.AddDiary,
     required this.DiaryDate
     });
 
-
-
-
     
+}
+//Adm////////////////////
+@HiveType(typeId: 6)
+
+class Adm extends HiveObject{
+   @HiveField(7)
+  String AdmPhoto;
+  @HiveField(8)
+  String AdmTitile;
+  @HiveField(9)
+  String AdmDescrption;
+  
+
+  Adm({
+    required this.AdmPhoto,
+    required this.AdmTitile,
+    required this.AdmDescrption
+    });   
 }
 
 

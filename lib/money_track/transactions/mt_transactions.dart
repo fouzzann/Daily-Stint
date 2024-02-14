@@ -103,7 +103,7 @@ class MtTransaction extends StatelessWidget {
   String parseDate(DateTime date) {
     final _date = DateFormat.MMMd().format(date);
     final _splitDate = _date.split(' ');
-    return '${_splitDate.last}\n${_splitDate.first}';
+    return '${_splitDate.last.padLeft(3)} \n${_splitDate.first}';
     //  '${date.day}\n${date.month}';
   }
 }
