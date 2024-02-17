@@ -1,7 +1,5 @@
 
-
-
-import 'package:daily_stint_2/authentication/login.dart';
+import 'package:daily_stint_2/homepage/home.dart';
 import 'package:flutter/material.dart';
 
 class LetsGoPage  extends StatelessWidget {
@@ -119,10 +117,10 @@ class LetsGoPage  extends StatelessWidget {
                
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LoginPage()),  
+                MaterialPageRoute(builder: (context) => MyHome()),  
               );
             },
-            child: Text('Login >',  
+            child: Text('Go >',  
             style: TextStyle(
               color: Colors.white
             ),),
