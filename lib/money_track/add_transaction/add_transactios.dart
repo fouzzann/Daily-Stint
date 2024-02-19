@@ -72,11 +72,8 @@ class _AddTransactionsState extends State<AddTransactions> {
                 }
             },
              icon:const Icon(Icons.calendar_today), 
-              label: Text( _selectedDate == null? 'Select Date':_selectedDate!.toString()),
-              ),
-           
-              
-             
+              label: Text( _selectedDate == null? 'Select Date':_selectedDate!.toString()), 
+              ),            
                // category
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
